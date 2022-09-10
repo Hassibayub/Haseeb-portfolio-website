@@ -1866,7 +1866,8 @@ h2.project_heading:after {
     position: absolute;
     left: 40px;
     bottom: 20px;
-    color: white;
+    right: 40px;
+    color: rgb(255, 255, 255);
     z-index: 1;
 	-webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
