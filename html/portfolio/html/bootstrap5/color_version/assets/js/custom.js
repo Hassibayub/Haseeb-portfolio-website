@@ -518,7 +518,7 @@ Assigned to: ThemeForest
     					formDetail.append('form_type' , _this.attr('data-type'));
 					$.ajax({
 						method : 'post',
-						url : 'ajax.php',
+						url : 'http://localhost:5000/send-mail',
 						data:formDetail,
 						cache:false,
 						contentType: false,
