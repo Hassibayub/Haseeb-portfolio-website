@@ -25,6 +25,7 @@ const sendEmail = (subject, html) => {
     const mailOptions = {
         from: `noreply ${process.env.SMTP_EMAIL}`,
         to: process.env.SMTP_EMAIL,
+        subject: "Query from portfolio 📄",
         html,
         subject,
     };
