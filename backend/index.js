@@ -9,6 +9,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+console.log('env', process.env.SMTP_EMAIL);
+
 const sendEmail = (subject, html) => {
     const smtpTransport = nodemailer.createTransport({
         service: "gmail",
