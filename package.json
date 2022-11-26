@@ -1,0 +1,28 @@
+{
+  "name": "haseeb-portfolio-website",
+  "version": "1.0.0",
+  "description": "Mailer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hassibayub/Haseeb-portfolio-website.git"
+  },
+  "author": "Haseeb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hassibayub/Haseeb-portfolio-website/issues"
+  },
+  "homepage": "https://github.com/Hassibayub/Haseeb-portfolio-website#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemailer": "^6.8.0"
+  },
+  "engines": {
+    "node": "18.11.0"
+  }
+}
