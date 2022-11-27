@@ -39,10 +39,10 @@ const sendEmail = (subject, html) => {
 };
 
 app.post("/send-mail", (req, res) => {
-    const {firstName, lastName, email, subject, message} = req.body;  // FIXME form?
+    const {first_name, last_name, email, subject, message} = req.body;  // FIXME form?
 
-    let html = `<div>First Name: ${firstName}</div>`;
-    html += `<div>Last Name: ${lastName}</div>`;
+    let html = `<div>First Name: ${first_name}</div>`;
+    html += `<div>Last Name: ${last_name}</div>`;
     html += `<div>Email: ${email}</div>`;
     html += `<br />`;
     html += `<p>${message}</p>`;

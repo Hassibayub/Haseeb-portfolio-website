@@ -515,16 +515,21 @@ Assigned to: ThemeForest
 				var check = checkRequire(targetForm , errroTarget);
 				if(check == 0){
 					var formDetail = new FormData(targetForm[0]);
+					// let formDetail = new FormData(document.querySelector("#contact-us-form"))
     					formDetail.append('form_type' , _this.attr('data-type'));
+						console.log(JSON.stringify(Object.fromEntries(formDetail)));
 					$.ajax({
-						method : 'post',
+						method : 'POST',
 						url : 'http://localhost:5000/send-mail',
-						data:formDetail,
+						data:JSON.stringify(Object.fromEntries(formDetail)),
 						cache:false,
-						contentType: false,
+						headers: {
+							"Content-Type": "application/json"
+						  },
 						processData: false
 					}).done(function(resp){
-						if(resp == 1){
+						console.log(resp)
+						if(resp == "ok"){
 							targetForm.find('input').val('');
 							targetForm.find('textarea').val('');
 							errroTarget.html('<p style="color:green;">Mail has been sent successfully.</p>');
