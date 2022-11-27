@@ -515,12 +515,11 @@ Assigned to: ThemeForest
 				var check = checkRequire(targetForm , errroTarget);
 				if(check == 0){
 					var formDetail = new FormData(targetForm[0]);
-					// let formDetail = new FormData(document.querySelector("#contact-us-form"))
     					formDetail.append('form_type' , _this.attr('data-type'));
 						console.log(JSON.stringify(Object.fromEntries(formDetail)));
 					$.ajax({
 						method : 'POST',
-						url : 'http://localhost:5000/send-mail',
+						url : 'https://arcane-tundra-51578.herokuapp.com/send-mail',
 						data:JSON.stringify(Object.fromEntries(formDetail)),
 						cache:false,
 						headers: {
@@ -528,7 +527,6 @@ Assigned to: ThemeForest
 						  },
 						processData: false
 					}).done(function(resp){
-						console.log(resp)
 						if(resp == "ok"){
 							targetForm.find('input').val('');
 							targetForm.find('textarea').val('');
