@@ -192,15 +192,18 @@ Assigned to: ThemeForest
 	// magnifiv popup for project gallery
 	magnific_popup: function() {
 			if($('.view').length > 0){
+			// $('.view').magnificPopup({
+			//   type: 'image',
+			  
+			//   gallery: {
+			// 	// options for gallery
+			// 	enabled: true
+			//   }
+			  
+			//   // other options
+			// });
 			$('.view').magnificPopup({
-			  type: 'image',
-			  
-			  gallery: {
-				// options for gallery
-				enabled: true
-			  }
-			  
-			  // other options
+				type: 'inline',
 			});
 		}
 	},

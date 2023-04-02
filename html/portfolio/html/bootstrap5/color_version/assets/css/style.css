@@ -3334,3 +3334,17 @@ p.banner_pera {
 }
 }
 /*  ================== 20 End media query css ==================  */
+
+.project-description-cover-photo {
+    width: 100%;
+    object-fit: cover;
+    height: 400px;
+    object-position: center;
+    margin-top: 6px;
+}
+.project-details-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
