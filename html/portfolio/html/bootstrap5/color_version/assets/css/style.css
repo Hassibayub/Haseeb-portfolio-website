@@ -28,6 +28,8 @@ Assigned to: ThemeForest
 
 --------------------------------------------------------------------*/
 /* ================== 01 body start ================== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 body {
     margin: 0;
     font-family: 'Josefin Sans', sans-serif;
@@ -3347,4 +3349,57 @@ p.banner_pera {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+  body hr{
+    width:50px;
+    border: none;
+    border-bottom: 1px solid rgba(119, 119, 119, 0.25);
+    margin: 0 auto;
+}
+  
+
+.container-text-capital-first p:first-child::first-letter{
+    color:#FE5F55;
+    font-weight: bold;
+    font-size: 70px;
+    float: left;
+    line-height: 60px;
+    padding-right: 8px;
+    margin-top: -1px;
+}
+
+@media screen and (max-width:600px){
+    .container{
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+
+.sweet {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3em;
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
+    background-image: linear-gradient(gold, gold);
+    background-size: 100% 10px;
+    background-repeat: no-repeat;
+    background-position: 100% 0%;
+     transition: background-size .7s, background-position .5s ease-in-out;
+  }
+  
+.sweet:hover {
+background-size: 100% 100%;
+background-position: 0% 100%;
+transition: background-position .7s, background-size .5s ease-in-out;
+}
+
+.project-text-description{
+    font-family: 'dosis', sans-serif; 
+    font-weight: 500;
+    font-size: medium;
 }
