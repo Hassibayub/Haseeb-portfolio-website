@@ -6,3 +6,4 @@
 [] Redesign the email me section
 [] complete the blogs
 [] Add images to blogs posts
+[] Review everything
