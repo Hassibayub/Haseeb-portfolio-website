@@ -2375,6 +2375,14 @@ h2.project_heading:after {
 /*================== 15 End contact section css ==================  */
 
 /*================== 16 footer section css ==================  */
+.footer_heading {
+    color: #556d91;
+    font-size: 22px;
+    position: relative;
+    padding: 15px 0px 4px 0px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
 .port_footer_setions .footer_heading {
     color: #556d91;
     font-size: 22px;
