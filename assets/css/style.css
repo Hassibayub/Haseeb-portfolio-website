@@ -1867,7 +1867,7 @@ h2.project_heading:after {
 .port_project_gallery .grid-content {
     position: absolute;
     left: 40px;
-    bottom: 20px;
+    bottom: 4px;
     right: 40px;
     color: rgb(255, 255, 255);
     z-index: 1;
@@ -3347,7 +3347,7 @@ p.banner_pera {
 
 .project-description-cover-photo {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     height: 400px;
     object-position: center;
     margin-top: 6px;
