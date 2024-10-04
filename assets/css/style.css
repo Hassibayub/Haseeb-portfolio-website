@@ -834,11 +834,12 @@ transform: translate(-50%,-50%);
 	   color: #222222;
 }
 .bannner_leftpart .banner_name {
-    text-transform: capitalize;
+    text-transform: uppercase;
     color: #00c8da;
     font-size: 92px;
     margin-left: -9px;
     font-weight: 700;
+    letter-spacing: 1px;
 }
 p.banner_pera {
     color: #222222;
