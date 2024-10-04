@@ -3411,3 +3411,8 @@ transition: background-position .7s, background-size .5s ease-in-out;
     font-weight: 500;
     font-size: medium;
 }
+
+
+.favicon {
+    border-radius: 50%;
+ }
