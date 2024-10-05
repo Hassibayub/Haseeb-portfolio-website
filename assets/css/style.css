@@ -1,6 +1,7 @@
 /*--------------------- Copyright (c) 2019 --------------------------
 [Master Stylesheet] 
-Project: Portfolio Responsive HTML Template
+Project: Port
+folio Responsive HTML Template
 Version: 1.0.6
 Assigned to: ThemeForest
  ------------------------------------------------------------------- 
@@ -1589,7 +1590,7 @@ h3.education_place {
 
 /*================== 07 Start progress baar section css ==================  */
 .port_progress_setions {
-    background: rgb(252, 194, 85);
+    background: #f7fbff; /*TODO Change it to #f7fbff*/
     padding-bottom: 71px;
 }
 .port_progress_setions .prt_heading_white .prt_heading_wrapper .prt_head:after {
@@ -3428,65 +3429,37 @@ transition: background-position .7s, background-size .5s ease-in-out;
 
 
 
+.metrics-section {
+    display: flex;
+    /* gap: 50px; Space between metric items */
+    max-width: 1000px;
+    text-align: left;
+}
 
-    #why_work_with_me {
-        padding: 60px 0;
-        background-color: #f9f9f9;
-    }
+.metric-item {
+    flex: 1;
+}
 
-    .why_work_with_me_text {
-        padding: 20px;
-        background: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
+.metric-label {
+    font-size: 1rem;
+    color: #555; /* Slightly gray color for label */
+    margin-bottom: 10px;
+    font-weight: 400; /* Normal weight for label text */
+}
 
-    .port_sub_heading {
-        font-size: 28px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 20px;
-    }
+.metric-number {
+    font-size: 3rem;
+    font-weight: 400; /* Bold weight for metric numbers */
+    color: #000; /* Black for emphasis */
+}
 
-    .why_work_with_me_list {
-        list-style: none;
-        padding: 0;
-    }
 
-    .why_work_with_me_list li {
-        margin-bottom: 15px;
-        font-size: 16px;
-        color: #555;
-    }
-
-    .why_work_with_me_list li strong {
-        color: #000;
-    }
-
-    .why_work_with_me_image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-
-    .why_work_with_me_image svg {
-        width: 80%;
-        height: auto;
-        fill: #ffdd57;
-        stroke: #ff6f61;
-    }
-
-    @media (max-width: 768px) {
-        .port_sub_heading {
-            font-size: 24px;
-        }
-
-        .why_work_with_me_list li {
-            font-size: 14px;
-        }
-
-        .why_work_with_me_image svg {
-            width: 100%;
-        }
-    }
+.metric-section-master {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+    margin: 0;
+}
