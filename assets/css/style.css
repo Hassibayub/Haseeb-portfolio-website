@@ -3431,7 +3431,7 @@ transition: background-position .7s, background-size .5s ease-in-out;
 
 .metrics-section {
     display: flex;
-    /* gap: 50px; Space between metric items */
+    gap: 50px; 
     max-width: 1000px;
     text-align: left;
 }
@@ -3444,7 +3444,7 @@ transition: background-position .7s, background-size .5s ease-in-out;
     font-size: 1rem;
     color: #555; /* Slightly gray color for label */
     margin-bottom: 10px;
-    font-weight: 400; /* Normal weight for label text */
+    font-weight: 200; /* Normal weight for label text */
 }
 
 .metric-number {
