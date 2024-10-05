@@ -1827,12 +1827,13 @@ h2.project_heading:after {
     bottom: 0;
 }
 .port_services_setions .port_services_box P {
-    color: #777777;
+    color: #4c4c4c;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
     transition: all .3s ease;
+    text-align: left
 }
 /*================== 09 End Services section css ==================  */
 
