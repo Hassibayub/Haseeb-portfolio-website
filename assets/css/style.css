@@ -2316,7 +2316,7 @@ transition: background-position .7s, background-size .5s ease-in-out;
 
 
 
-.metrics-section {
+ .metrics-section {
     display: flex;
     gap: 50px; 
     max-width: 1000px;
@@ -2340,7 +2340,6 @@ transition: background-position .7s, background-size .5s ease-in-out;
     color: #000; /* Black for emphasis */
 }
 
-
 .metric-section-master {
     font-family: 'Inter', Arial, sans-serif;
     background-color: #ffffff;
@@ -2350,6 +2349,59 @@ transition: background-position .7s, background-size .5s ease-in-out;
     height: 20rem;
     margin: 0;
 }
+
+.port_progress_setions {
+    background: #f7fbff; /*TODO Change it to #f7fbff*/
+    padding-bottom: 71px;
+}
+
+/* Media query for tablets */
+@media (max-width: 768px) {
+    .metrics-section {
+        flex-direction: column;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    .metric-number {
+        font-size: 2.5rem;
+    }
+
+    .metric-label {
+        font-size: 0.9rem;
+    }
+
+    .metric-section-master {
+        height: auto;
+        padding: 3rem;
+    }
+
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .metrics-section {
+        flex-direction: column;
+        gap: 15px;
+        max-width: 100%;
+    }
+
+    .metric-number {
+        font-size: 2rem;
+    }
+
+    .metric-label {
+        font-size: 0.8rem;
+    }
+
+    .metric-section-master {
+        height: auto;
+        padding: 20px;
+    }
+
+
+    
+} 
 
 .grid_img img {
     border-radius: 15px; /* Ensure images fit within rounded corners */
@@ -2399,6 +2451,3 @@ transition: background-position .7s, background-size .5s ease-in-out;
     text-align: left;
 }
 
-/* Title styling */
-
-/* Description styling */
