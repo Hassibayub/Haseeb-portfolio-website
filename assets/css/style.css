@@ -1862,6 +1862,7 @@ h2.project_heading:after {
     height: 100%;
     opacity: 0;
     visibility: hidden;
+    border-radius: 15px;
     -webkit-transition: all 0.4s;
     -moz-transition: all 0.4s;
     -ms-ttransition: all 0.4s;
@@ -1891,10 +1892,12 @@ h2.project_heading:after {
 .port_project_gallery .grid-item:hover .grid-content {
 	opacity: 1;
     visibility: visible;
+    border-radius: 15px;
 }
 .port_project_gallery .grid-item:hover .grid_img:before {
 	opacity: 1;
     visibility: visible;
+    border-radius: 15px;
 }
 .port_project_gallery .grid_img img{
     transition: all 700ms ease;
@@ -1905,6 +1908,7 @@ h2.project_heading:after {
 }
 .port_project_gallery .grid-item:hover .grid_img img{
 	transform: scale(1.2,1.2);
+    border-radius: 15px;
 }
 .port_project_gallery .port_project_gallery_view a {
     z-index: 0;
@@ -3483,6 +3487,7 @@ transition: background-position .7s, background-size .5s ease-in-out;
 .project-card:hover {
     transform: translateY(-5px); /* Lift effect on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    
 }
 
 .grid_img img {
@@ -3511,3 +3516,48 @@ transition: background-position .7s, background-size .5s ease-in-out;
     padding: 20px;
 }
 
+
+
+/* Basic styles for the gallery grid */
+.gallery_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Style for individual project items */
+.grid-item {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+}
+
+/* Image styling */
+.grid_img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Content styling for each project item */
+.grid-content {
+    padding: 20px;
+    text-align: left;
+}
+
+/* Title styling */
+.grid-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Description styling */
+.grid-description {
+    font-size: 0.9em;
+    line-height: 1.5em;
+    color: #666;
+}
