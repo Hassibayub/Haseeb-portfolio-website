@@ -1660,19 +1660,16 @@ h3.education_place {
     -webkit-box-shadow: 5px 5px 15px #9292926e;
     -moz-box-shadow: 5px 5px 15px #9292926e;
 }
+
 .port_experience_setions .ex_rightside {
     background: #ffffff;
     padding: 20px;
-    border-radius: 3px;
-    -webkit-transition: all 05s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -o-transition: all 0.5s;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid #d3d3d3; /* Light grey border */
     transition: all 0.5s;
-    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.12);
-    -webkit-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.12);
 }
+
 .exprince_box h1, .exprince_box h4, .exprince_box p {
     padding: 0;
     margin: 0;
@@ -1788,16 +1785,21 @@ h3.education_place {
 	padding-bottom: 50px;
 }
 .port_services_setions .port_services_box {
-	transition: all 0.5s;
+    transition: all 0.5s;
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(235, 235, 235);
     padding: 30px;
     max-width: 500px;
     margin: auto;
     position: relative;
     z-index: 0;
     margin-bottom: 30px;
+
+    /* Add rounding, shadow, and border */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d3d3d3;
 }
+
 .port_services_setions .port_services_box:hover {
     box-shadow: 0px 12px 29px 0px rgb(0, 0, 0, 0.09);
 	border-color: #00000000;
@@ -2270,10 +2272,18 @@ h2.project_heading:after {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
 .port_blog_setions .port_blog_mainbox {
     margin-bottom: 30px;
-	box-shadow: 0 0px 30px 0 rgba(0,0,0,0.08);
+    background: #ffffff;
+    padding: 30px;
+
+    /* Add rounding, shadow, and border */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d3d3d3;
 }
+
 .port_blog_setions .right_box .port_blog_imgbox:after {
     left: -20px;
     right: 20px;
@@ -3392,10 +3402,6 @@ p.banner_pera {
 .sweet {
     font-family: 'Bebas Neue', cursive;
     font-size: 3em;
-    /* position: absolute; */
-    /* top: 50%; */
-    /* left: 50%; */
-    /* transform: translate(-50%,-50%); */
     background-image: linear-gradient(gold, gold);
     background-size: 100% 10px;
     background-repeat: no-repeat;
@@ -3464,3 +3470,44 @@ transition: background-position .7s, background-size .5s ease-in-out;
     height: 20rem;
     margin: 0;
 }
+
+
+.project-card {
+    border-radius: 15px; /* Adjust as per your preference */
+    overflow: hidden; /* Ensure content fits within the rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional for a subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid lightgrey;
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.grid_img img {
+    border-radius: 15px; /* Ensure images fit within rounded corners */
+    border: 1px solid rgb(228, 228, 228); /* Optional: Add a light border around images */
+}
+
+.gallery_grid .grid-item {
+    border-radius: 15px;
+}
+
+.modal-content {
+    border-radius: 15px;
+}
+
+/* Reusable card styling for rounding, shadow, and border */
+.card {
+    border-radius: 10px; /* Adjust for the amount of roundness */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid #d3d3d3; /* Light grey border */
+    overflow: hidden; /* Ensures content respects border radius */
+}
+
+/* Adjusting padding to avoid overflow at rounded corners */
+.card-content {
+    padding: 20px;
+}
+
