@@ -949,12 +949,151 @@
                                 <div class="gallery_grid">
                                     <!-- My Projects List  -->
 
+
+                                    <!-- NEW PROJECT: Aphra.me [START] -->
+                                    <div class="grid-item ai backend realtime" data-bs-toggle="modal"
+                                        data-bs-target="#project-grid-item-aphra">
+                                        <a>
+                                            <div class="grid_img">
+                                                <!-- You can replace this placeholder with a screenshot of Aphra.me -->
+                                                <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Aphra.me"
+                                                    alt="Aphra.me AI Video Assistant" />
+                                            </div>
+                                            <div class="grid-content">
+                                                <h3>Aphra.me - Personalized AI Video Assistant</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="modal fade" id="project-grid-item-aphra" tabindex="-1"
+                                        aria-labelledby="aphraModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="border: none">
+                                                    <h5 class="modal-title" id="aphraModalLabel"></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <!-- You can replace this placeholder with a cover photo of the project -->
+                                                    <img class="project-description-cover-photo"
+                                                        src="https://placehold.co/800x400/1a1a1a/ffffff?text=Aphra.me"
+                                                        alt="Aphra.me Project Cover" />
+                                                    <div class="px-4">
+                                                        <div class="my-4 text-h6 sweet">
+                                                            <h4>
+                                                                Aphra.me - Personalized AI Video Assistant
+                                                                <span class="ml-4">
+                                                                    <a href="https://aphra.me/" target="_blank">
+                                                                        <i class="fa fa-external-link nav_fb"
+                                                                            aria-hidden="true"></i>
+                                                                    </a>
+                                                                </span>
+                                                            </h4>
+                                                            <hr />
+                                                        </div>
+                                                        <div class="container-text-capital-first">
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                Aphra.me is a next-generation personalized AI assistant
+                                                                that brings interaction to life with a live AI video
+                                                                avatar. Moving beyond traditional text-based chats, it
+                                                                provides a face-to-face conversational experience,
+                                                                helping over 17,000 active users manage their daily
+                                                                tasks in a more human-like and engaging way.
+                                                            </p>
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                As the architect of the entire backend and AI agent
+                                                                system, I was responsible for building the complex,
+                                                                real-time infrastructure that powers every conversation.
+                                                                My work enabled Aphra.me to scale and deliver a
+                                                                seamless, low-latency experience to its rapidly growing
+                                                                user base.
+                                                            </p>
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                <strong>The Challenge:</strong><br>
+                                                                The core challenge was to create a fluid, real-time,
+                                                                human-like video conversation. This required
+                                                                orchestrating multiple AI services—speech-to-text,
+                                                                language model processing, text-to-speech, and avatar
+                                                                animation—with near-zero latency. Building a backend
+                                                                that could maintain thousands of simultaneous, stateful
+                                                                WebSocket connections for this continuous data flow was
+                                                                a significant engineering feat.
+                                                            </p>
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                <strong>Technical Innovation:</strong><br>
+                                                                I engineered a high-throughput, real-time pipeline using
+                                                                WebSockets as the communication backbone. This system
+                                                                streams audio from the client, transcribes it instantly,
+                                                                gets an intelligent response from the custom AI agents I
+                                                                developed, synthesizes it back into speech, and drives
+                                                                the avatar's talking head animation—all in a continuous,
+                                                                uninterrupted flow. This innovation is what creates the
+                                                                platform's uniquely immersive and responsive user
+                                                                experience.
+                                                            </p>
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                <strong>Key Features & Impact:</strong><br>
+                                                                • <strong>Live AI Video Chat</strong>: Enabled
+                                                                face-to-face conversations with an AI, fostering a
+                                                                stronger user connection and driving engagement.<br>
+                                                                • <strong>Real-Time Conversational Engine</strong>:
+                                                                Built a robust Python backend using WebSockets to manage
+                                                                thousands of concurrent, bidirectional data streams for
+                                                                uninterrupted dialogue.<br>
+                                                                • <strong>Seamless Voice Integration</strong>:
+                                                                Implemented a full-duplex system with real-time STT and
+                                                                TTS engines, allowing for natural, spoken
+                                                                interactions.<br>
+                                                                • <strong>Expressive AI Avatar</strong>: Developed the
+                                                                server-side logic to synchronize the AI-generated audio
+                                                                with the "talking head" avatar for realistic lip-sync
+                                                                and expression.<br>
+                                                                • <strong>Proven Scalability</strong>: The architecture
+                                                                I designed successfully scaled to support over 17,000
+                                                                active users, proving its stability and efficiency.
+                                                            </p>
+
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                <strong>Technology Stack:</strong><br>
+                                                                • <strong>Backend</strong>: Python for the core
+                                                                application logic and real-time processing.<br>
+                                                                • <strong>Real-time Communication</strong>: WebSockets
+                                                                for persistent, low-latency client-server
+                                                                connections.<br>
+                                                                • <strong>AI Agents</strong>: Custom-built AI agents to
+                                                                handle conversational logic and user tasks.<br>
+                                                                • <strong>Speech Processing</strong>: Real-time
+                                                                Speech-to-Text (STT) & Text-to-Speech (TTS)
+                                                                pipelines.<br>
+                                                                • <strong>AI Avatar</strong>: Integrated "Talking Head"
+                                                                technology for live video animation.<br>
+                                                                • <strong>Frontend</strong>: NextJS for a dynamic and
+                                                                responsive user interface.
+                                                            </p>
+                                                            <p class="mt-2 mb-5 project-text-description">
+                                                                My work on Aphra.me was instrumental in transforming an
+                                                                ambitious concept into a scalable and successful
+                                                                product, demonstrating the potential of real-time AI to
+                                                                create truly personal and interactive digital
+                                                                experiences.
+                                                            </p>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- [END] -->
+
+
                                     <!-- NEW PROJECT: Tula Transformation [START] -->
                                     <div class="grid-item ai chatbot api_developement devops" data-bs-toggle="modal"
                                         data-bs-target="#project-grid-item-new-1">
                                         <a>
                                             <div class="grid_img">
-                                                <img src="./assets/images/projects/tula_transformation.png" alt="project-img" />
+                                                <img src="./assets/images/projects/tulatransformation.png"
+                                                    alt="project-img" />
                                             </div>
                                             <div class="grid-content">
                                                 <h3>Tula Transformation - AI Therapist Platform</h3>
@@ -972,13 +1111,15 @@
                                                 </div>
                                                 <div class="modal-body p-0">
                                                     <img class="project-description-cover-photo"
-                                                        src="./assets/images/projects/tula_transformation.png" alt="project-img" />
+                                                        src="./assets/images/projects/tulatransformation.png"
+                                                        alt="project-img" />
                                                     <div class="px-4">
                                                         <div class="my-4 text-h6 sweet">
                                                             <h4>
                                                                 Tula Transformation - AI Therapist Platform
                                                                 <span class="ml-4">
-                                                                    <a href="https://tulatransformation.com/" target="_blank">
+                                                                    <a href="https://tulatransformation.com/"
+                                                                        target="_blank">
                                                                         <i class="fa fa-external-link nav_fb"
                                                                             aria-hidden="true"></i>
                                                                     </a>
@@ -988,86 +1129,138 @@
                                                         </div>
                                                         <div class="container-text-capital-first">
                                                             <p class="mt-2 mb-5 project-text-description">
-                                                                In the rapidly evolving landscape of mental health technology, 
-                                                                breakthrough applications are transforming how we approach therapy 
-                                                                and personal development. Tula Transformation represents a 
-                                                                revolutionary step forward—an AI-powered therapist platform that's 
-                                                                not just changing lives, but has also captured the attention of 
+                                                                In the rapidly evolving landscape of mental health
+                                                                technology,
+                                                                breakthrough applications are transforming how we
+                                                                approach therapy
+                                                                and personal development. Tula Transformation represents
+                                                                a
+                                                                revolutionary step forward—an AI-powered therapist
+                                                                platform that's
+                                                                not just changing lives, but has also captured the
+                                                                attention of
                                                                 major investors, securing $1.2 million USD in funding.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
-                                                                As the lead developer behind this groundbreaking platform, I 
-                                                                architected and built a comprehensive solution that combines 
-                                                                cutting-edge AI technology with therapeutic methodologies to 
-                                                                help users boost relationships, reduce anxiety, and fundamentally 
-                                                                improve their quality of life through advanced language patterns 
+                                                                As the lead developer behind this groundbreaking
+                                                                platform, I
+                                                                architected and built a comprehensive solution that
+                                                                combines
+                                                                cutting-edge AI technology with therapeutic
+                                                                methodologies to
+                                                                help users boost relationships, reduce anxiety, and
+                                                                fundamentally
+                                                                improve their quality of life through advanced language
+                                                                patterns
                                                                 and conversational AI.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
                                                                 <strong>The Challenge:</strong><br>
-                                                                Traditional therapy faces accessibility barriers—cost, scheduling, 
-                                                                stigma, and geographical limitations. The challenge was to create 
-                                                                an AI system that could provide meaningful therapeutic support 
-                                                                while maintaining the depth and empathy of human interaction. 
-                                                                The platform needed to be intelligent enough to understand complex 
-                                                                emotional contexts and provide personalized guidance in real-time.
+                                                                Traditional therapy faces accessibility barriers—cost,
+                                                                scheduling,
+                                                                stigma, and geographical limitations. The challenge was
+                                                                to create
+                                                                an AI system that could provide meaningful therapeutic
+                                                                support
+                                                                while maintaining the depth and empathy of human
+                                                                interaction.
+                                                                The platform needed to be intelligent enough to
+                                                                understand complex
+                                                                emotional contexts and provide personalized guidance in
+                                                                real-time.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
                                                                 <strong>Technical Innovation:</strong><br>
-                                                                Built on a robust technology stack, the platform leverages FastAPI 
-                                                                for high-performance backend services, ensuring lightning-fast 
-                                                                response times crucial for therapeutic conversations. The integration 
-                                                                of Google's Gemini LLM provides sophisticated natural language 
-                                                                understanding and generation capabilities, allowing the AI to 
-                                                                engage in nuanced, contextually aware therapeutic dialogues.
+                                                                Built on a robust technology stack, the platform
+                                                                leverages FastAPI
+                                                                for high-performance backend services, ensuring
+                                                                lightning-fast
+                                                                response times crucial for therapeutic conversations.
+                                                                The integration
+                                                                of Google's Gemini LLM provides sophisticated natural
+                                                                language
+                                                                understanding and generation capabilities, allowing the
+                                                                AI to
+                                                                engage in nuanced, contextually aware therapeutic
+                                                                dialogues.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
-                                                                The real-time communication system incorporates advanced Text-to-Speech 
-                                                                (TTS) and Speech-to-Text (STT) technologies using open-source solutions, 
-                                                                creating a seamless conversational experience. Users can interact 
-                                                                through voice, making the therapy sessions feel more natural and 
-                                                                accessible. The ReactJS frontend delivers an intuitive, responsive 
-                                                                interface that adapts to various devices and user preferences.
+                                                                The real-time communication system incorporates advanced
+                                                                Text-to-Speech
+                                                                (TTS) and Speech-to-Text (STT) technologies using
+                                                                open-source solutions,
+                                                                creating a seamless conversational experience. Users can
+                                                                interact
+                                                                through voice, making the therapy sessions feel more
+                                                                natural and
+                                                                accessible. The ReactJS frontend delivers an intuitive,
+                                                                responsive
+                                                                interface that adapts to various devices and user
+                                                                preferences.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
                                                                 <strong>Key Features & Impact:</strong><br>
-                                                                • <strong>Relationship Enhancement</strong>: Advanced algorithms analyze 
-                                                                communication patterns and provide personalized strategies for 
+                                                                • <strong>Relationship Enhancement</strong>: Advanced
+                                                                algorithms analyze
+                                                                communication patterns and provide personalized
+                                                                strategies for
                                                                 improving interpersonal relationships<br>
-                                                                • <strong>Anxiety Reduction</strong>: Evidence-based therapeutic techniques 
-                                                                integrated into conversational AI for immediate stress relief<br>
-                                                                • <strong>Language Pattern Analysis</strong>: Sophisticated NLP identifies 
-                                                                negative thought patterns and guides users toward healthier 
+                                                                • <strong>Anxiety Reduction</strong>: Evidence-based
+                                                                therapeutic techniques
+                                                                integrated into conversational AI for immediate stress
+                                                                relief<br>
+                                                                • <strong>Language Pattern Analysis</strong>:
+                                                                Sophisticated NLP identifies
+                                                                negative thought patterns and guides users toward
+                                                                healthier
                                                                 mental frameworks<br>
-                                                                • <strong>24/7 Availability</strong>: Unlike traditional therapy, users can 
+                                                                • <strong>24/7 Availability</strong>: Unlike traditional
+                                                                therapy, users can
                                                                 access support whenever needed<br>
-                                                                • <strong>Privacy-First Design</strong>: Secure, confidential interactions 
+                                                                • <strong>Privacy-First Design</strong>: Secure,
+                                                                confidential interactions
                                                                 that respect user privacy
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
                                                                 <strong>Investment Success:</strong><br>
-                                                                The platform's innovative approach and proven effectiveness 
-                                                                attracted significant investor interest, resulting in a successful 
-                                                                $1.2 million USD funding round. This validation demonstrates not 
-                                                                only the technical excellence of the solution but also its 
-                                                                market potential and real-world impact on users' mental health 
+                                                                The platform's innovative approach and proven
+                                                                effectiveness
+                                                                attracted significant investor interest, resulting in a
+                                                                successful
+                                                                $1.2 million USD funding round. This validation
+                                                                demonstrates not
+                                                                only the technical excellence of the solution but also
+                                                                its
+                                                                market potential and real-world impact on users' mental
+                                                                health
                                                                 and wellbeing.
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
                                                                 <strong>Technology Stack:</strong><br>
-                                                                • <strong>Backend</strong>: FastAPI for high-performance API development<br>
-                                                                • <strong>AI/ML</strong>: Google Gemini LLM for advanced conversational AI<br>
-                                                                • <strong>Speech Processing</strong>: Open-source TTS/STT for voice interactions<br>
-                                                                • <strong>Real-time Systems</strong>: WebSocket implementation for instant communication<br>
-                                                                • <strong>Frontend</strong>: ReactJS for responsive, modern user interface<br>
-                                                                • <strong>Architecture</strong>: Scalable, cloud-native design for global accessibility
+                                                                • <strong>Backend</strong>: FastAPI for high-performance
+                                                                API development<br>
+                                                                • <strong>AI/ML</strong>: Google Gemini LLM for advanced
+                                                                conversational AI<br>
+                                                                • <strong>Speech Processing</strong>: Open-source
+                                                                TTS/STT for voice interactions<br>
+                                                                • <strong>Real-time Systems</strong>: WebSocket
+                                                                implementation for instant communication<br>
+                                                                • <strong>Frontend</strong>: ReactJS for responsive,
+                                                                modern user interface<br>
+                                                                • <strong>Architecture</strong>: Scalable, cloud-native
+                                                                design for global accessibility
                                                             </p>
                                                             <p class="mt-2 mb-5 project-text-description">
-                                                                Tula Transformation represents more than just a technological 
-                                                                achievement—it's a testament to how thoughtful AI development 
-                                                                can address real human needs. By combining advanced machine 
-                                                                learning with therapeutic expertise, we've created a platform 
-                                                                that's genuinely transforming lives while setting new standards 
+                                                                Tula Transformation represents more than just a
+                                                                technological
+                                                                achievement—it's a testament to how thoughtful AI
+                                                                development
+                                                                can address real human needs. By combining advanced
+                                                                machine
+                                                                learning with therapeutic expertise, we've created a
+                                                                platform
+                                                                that's genuinely transforming lives while setting new
+                                                                standards
                                                                 for AI-assisted mental health solutions.
                                                             </p>
                                                             <br />
@@ -1205,11 +1398,11 @@
                                         data-bs-toggle="modal" data-bs-target="#project-grid-item-2">
                                         <a>
                                             <div class="grid_img">
-                                                <img src="./assets/images/projects/Invoice.jpg" alt="project-img" />
+                                                <img src="./assets/images/projects/Invoice.png" alt="project-img" />
                                             </div>
                                             <div class="grid-content">
                                                 <h3>
-                                                    AI-based Invoice Detection and Data Extraction
+                                                    AI Invoice Automation Solution for B2B Enterprise
                                                 </h3>
                                             </div>
                                         </a>
@@ -1226,7 +1419,7 @@
                                                 </div>
                                                 <div class="modal-body p-0">
                                                     <img class="project-description-cover-photo"
-                                                        src="./assets/images/projects/Invoice.jpg" alt="project-img" />
+                                                        src="./assets/images/projects/Invoice.png" alt="project-img" />
                                                     <div class="px-4">
                                                         <div class="my-4 text-h6 sweet">
                                                             <h4>
