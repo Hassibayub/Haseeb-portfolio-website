@@ -75,8 +75,8 @@ function ServiceCard({
   return (
     <article
       className={[
-        'group relative flex flex-col justify-between overflow-hidden',
-        'rounded-3xl p-6 md:p-7',
+        'group relative flex flex-col overflow-hidden',
+        'rounded-3xl p-7',
         'transition-all duration-200 hover:-translate-y-0.5',
         variant === 'wide' ? 'md:col-span-2' : 'md:col-span-1',
       ].join(' ')}
@@ -85,9 +85,9 @@ function ServiceCard({
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04)',
       }}
     >
-      {/* Icon chip */}
+      {/* Icon chip — mb-auto pushes it to top */}
       <div
-        className="flex items-center justify-center"
+        className="flex items-center justify-center mb-auto"
         style={{
           width: 40,
           height: 40,
@@ -99,20 +99,28 @@ function ServiceCard({
         <Icon size={20} stroke={1.5} color="#1D2020" />
       </div>
 
-      {/* Text */}
-      <div className="mt-6">
+      {/* Text block — anchored to bottom with predictable gap */}
+      <div className="mt-10">
         <h3
-          className="font-sans font-medium text-[19px] mb-2 leading-snug"
+          className="font-sans font-medium text-[20px] mb-2 leading-snug"
           style={{ color: '#1D2020' }}
         >
           {service.title}
         </h3>
         <p
           className="text-[14px] leading-relaxed"
-          style={{ color: '#666666' }}
+          style={{ color: '#5A5C5C' }}
         >
           {service.description}
         </p>
+
+        {/* Tech stack line on wide cards only */}
+        {variant === 'wide' && (
+          <p className="text-[11px] font-mono mt-4" style={{ color: '#9A9C9C' }}>
+            {service.slug === 'ai-saas-mvp' && 'NextJS · Python · LangChain'}
+            {service.slug === 'ai-automation' && 'GoHighLevel · HubSpot · WhatsApp'}
+          </p>
+        )}
       </div>
     </article>
   );

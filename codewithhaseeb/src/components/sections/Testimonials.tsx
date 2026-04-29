@@ -44,18 +44,18 @@ export function Testimonials() {
         </figure>
 
         {/* Secondary grid: 3 per row on desktop */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
           {rest.map((t, i) => (
             <article
               key={i}
-              className="rounded-2xl p-6 flex flex-col"
+              className="rounded-2xl p-6"
               style={{
                 backgroundColor: '#FFFFFF',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.03)',
               }}
             >
               <p
-                className="text-[15px] leading-relaxed flex-1"
+                className="text-[15px] leading-relaxed"
                 style={{ color: '#2B2D2D' }}
               >
                 &ldquo;{t.quote}&rdquo;

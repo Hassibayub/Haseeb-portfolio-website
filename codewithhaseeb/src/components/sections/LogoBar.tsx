@@ -1,5 +1,18 @@
 import { siteConfig } from '@/lib/siteConfig';
 
+const logoMeta: Record<string, { size: string; weight: string }> = {
+  'Sony PlayStation':    { size: 'text-[20px]', weight: 'font-semibold' },
+  'Aphra.me':            { size: 'text-[22px]', weight: 'font-medium' },
+  'Tula Transformation': { size: 'text-[18px]', weight: 'font-medium' },
+  'Capwell Comm':        { size: 'text-[19px]', weight: 'font-medium' },
+  'KCNL.eu':             { size: 'text-[20px]', weight: 'font-semibold' },
+  'Bestinform.eu':       { size: 'text-[18px]', weight: 'font-medium' },
+  'Medmatch':            { size: 'text-[22px]', weight: 'font-semibold' },
+  'FCS':                 { size: 'text-[24px]', weight: 'font-bold' },
+  'RGR Learning':        { size: 'text-[17px]', weight: 'font-medium' },
+  'eXelerete':           { size: 'text-[19px]', weight: 'font-medium' },
+};
+
 export function LogoBar() {
   const logos = siteConfig.clientLogos;
 
@@ -47,13 +60,13 @@ export function LogoBar() {
 }
 
 function LogoItem({ name }: { name: string }) {
+  const meta = logoMeta[name] ?? { size: 'text-[18px]', weight: 'font-medium' };
   return (
     <span
-      className="logo-item text-lg font-medium whitespace-nowrap tracking-tight transition-all duration-200"
+      className={`logo-item ${meta.size} ${meta.weight} whitespace-nowrap tracking-tight transition-colors duration-200 hover:text-[#1D2020]`}
       style={{
         fontFamily: 'var(--font-ibm)',
-        color: '#1D2020',
-        opacity: 0.40,
+        color: 'rgba(43,45,45,0.40)',
       }}
     >
       {name}

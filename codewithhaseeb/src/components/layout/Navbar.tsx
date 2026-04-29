@@ -69,7 +69,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('book_call_click', { location: 'navbar' })}
-            className="group ml-2 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all hover:brightness-95"
+            className="group ml-2 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all hover:brightness-95 whitespace-nowrap"
             style={{ backgroundColor: '#D8F9B8', color: '#1D2020' }}
           >
             Book a call

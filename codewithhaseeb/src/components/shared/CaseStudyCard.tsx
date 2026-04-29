@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 import type { CaseStudySummary } from '@/content/case-studies-meta';
 
@@ -14,18 +13,22 @@ export function CaseStudyCard({ caseStudy }: { caseStudy: CaseStudySummary }) {
         boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03)',
       }}
     >
-      {/* Cover image */}
+      {/* Cover — editorial gradient placeholder until real screenshots are available */}
       <div
         className="relative overflow-hidden"
-        style={{ aspectRatio: '16 / 10', backgroundColor: '#F3F2F1' }}
+        style={{
+          aspectRatio: '16 / 10',
+          background: 'linear-gradient(135deg, #1D2020 0%, #2B2D2D 100%)',
+        }}
       >
-        <Image
-          src={caseStudy.cover}
-          alt={`${caseStudy.client}: ${caseStudy.title}`}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-        />
+        <div className="absolute inset-0 flex items-center justify-center p-8">
+          <p
+            className="font-mono text-[11px] tracking-[0.15em] uppercase"
+            style={{ color: 'rgba(216, 249, 184, 0.7)' }}
+          >
+            cs_{String(caseStudy.order).padStart(2, '0')} / {caseStudy.clientLabel.toLowerCase()}
+          </p>
+        </div>
       </div>
 
       {/* Content */}

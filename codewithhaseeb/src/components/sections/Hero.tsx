@@ -10,7 +10,7 @@ import { trackEvent } from '@/lib/analytics';
 export function Hero() {
   return (
     <section
-      className="relative pt-32 pb-40 md:pt-40 md:pb-48 overflow-hidden"
+      className="relative pt-40 pb-24 md:pt-56 md:pb-32 overflow-hidden"
       style={{ backgroundColor: '#1D2020' }}
     >
       <div className="container-tight">
@@ -23,9 +23,9 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="text-label mb-6"
-              style={{ color: 'rgba(255,255,255,0.4)' }}
+              style={{ color: 'rgba(216, 249, 184, 0.7)' }}
             >
-              AI Engineering · For Funded Startups
+              ai engineering / for funded startups
             </motion.p>
 
             <motion.h1
@@ -148,10 +148,10 @@ function HeroVisual() {
           className="font-display leading-none mb-2"
           style={{ fontSize: '80px', color: '#F1F0EE', letterSpacing: '-0.04em' }}
         >
-          17,234
+          17K
         </p>
         <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
-          active users · live
+          users live
         </p>
       </div>
 
@@ -168,7 +168,7 @@ function HeroVisual() {
             cs_02 / capwell comm
           </p>
           <p className="text-base font-medium" style={{ color: '#F1F0EE' }}>
-            500,000 records managed
+            500K records, 3 weeks
           </p>
         </div>
         <p
@@ -192,7 +192,7 @@ function HeroVisual() {
             cs_03 / kcnl.eu
           </p>
           <p className="text-base font-medium" style={{ color: '#F1F0EE' }}>
-            LLM cost cut
+            98.5% LLM cost cut
           </p>
         </div>
         <p
