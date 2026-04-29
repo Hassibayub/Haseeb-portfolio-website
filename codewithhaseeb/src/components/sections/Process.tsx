@@ -2,7 +2,7 @@ import { siteConfig } from '@/lib/siteConfig';
 
 export function Process() {
   return (
-    <section className="py-16 md:py-24" style={{ backgroundColor: '#FFFFFF' }}>
+    <section className="py-24 md:py-32" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="container-tight">
 
         {/* Header */}

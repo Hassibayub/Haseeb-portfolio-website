@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     'We ship production AI. Not demos. A 5-person senior engineering team building for funded startups and SMBs.',
 
-  ogImage: '/og/home.png',
+  ogImage: '/opengraph-image',
 
   links: {
     linkedin: 'https://www.linkedin.com/in/haseeb-ai',
@@ -77,21 +77,75 @@ export const siteConfig = {
 
   testimonials: [
     {
-      quote: 'Truly a genius! Would definitely work again.',
+      featured: true,
+      quote:
+        "Muhammad is an extremely skilled developer. I brought him a project multiple developers said wasn't possible. He took it on, knocked it out of the park, and met our tight deadline with ease. We will be working with him on many more projects.",
+      attribution: 'Luke Blackamore',
+      role: 'Founder',
+      meta: 'Upwork · Senior Full Stack',
+    },
+    {
+      quote:
+        "Muhammad is such a skilled developer. There was nothing he wasn't able to do with our project. Even with adversity, he overcame it with great communication and timely responses despite the time difference. Professional. 10/10.",
+      attribution: 'Ahmad Rashid',
+      role: 'Client',
+      meta: 'Upwork · Full Stack build',
+    },
+    {
+      quote:
+        'Truly a genius. Would definitely work again.',
       attribution: 'Voice AI healthcare client',
+      role: 'Client',
       meta: 'Jan 2026 · Real-time voice agent',
     },
     {
       quote:
         'Muhammad is an absolute expert in his field. Humble, thoughtful, an absolute pleasure to work with. His suggestions are spot-on.',
       attribution: 'AI Project Assistance client',
+      role: 'Client',
       meta: 'Jul 2024 · AI advisory',
+    },
+    {
+      quote:
+        'Haseeb did an exceptional job and completed the task with quality. Awesome to work with, no fuss, professional, easy to communicate with. 10/10 recommend him.',
+      attribution: 'Lim Jun Wei',
+      role: 'Client',
+      meta: 'Upwork · Data & AI',
+    },
+    {
+      quote:
+        "Muhammad quickly pulled a large amount of data for our team's needs. Extremely flexible and responsive as we requested additional scraping and analysis. We would definitely recommend his work.",
+      attribution: 'Kate',
+      role: 'Client',
+      meta: 'Upwork · Data engineering',
     },
     {
       quote:
         'He did an excellent job on our WhatsApp Flow project and delivered results even better than what we originally had in mind.',
       attribution: 'FGC Perfume Kuwait',
+      role: 'Client',
       meta: 'Feb 2026 · WhatsApp Business AI',
+    },
+    {
+      quote:
+        "Haseeb delivered good work on this data scraping project. His communication during the project was top-notch and his skills were strong. When I needed additional help to save my team time, he was forthcoming about cost and provided great solutions to save money. I will work with him again.",
+      attribution: 'Kurt Uhlir',
+      role: 'Client',
+      meta: 'Upwork · Data engineering',
+    },
+    {
+      quote:
+        'Muhammad was awesome to work with. Very professional, easy to work with and to communicate with.',
+      attribution: 'Zachary Jones',
+      role: 'Client',
+      meta: 'Upwork · Engineering',
+    },
+    {
+      quote:
+        'Muhammed did an excellent job and completed the assignment to a high quality and on time.',
+      attribution: 'Vishal Patel',
+      role: 'Client',
+      meta: 'Upwork · Engineering',
     },
   ],
 

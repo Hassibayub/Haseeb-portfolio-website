@@ -66,10 +66,14 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('book_call_click', { location: 'hero_primary' })}
-                className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-medium transition-colors hover:brightness-95"
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-medium transition-colors hover:brightness-95"
                 style={{ backgroundColor: '#D8F9B8', color: '#1D2020' }}
               >
                 Book a free 30-min call
+                <ArrowUpRight
+                  size={16}
+                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+                />
               </Link>
               <Link
                 href="/work"

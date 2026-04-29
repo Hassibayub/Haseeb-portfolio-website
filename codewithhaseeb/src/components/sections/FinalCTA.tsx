@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '@/lib/siteConfig';
 import { trackEvent } from '@/lib/analytics';
 
@@ -39,10 +40,14 @@ export function FinalCTA() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('book_call_click', { location: 'final_cta' })}
-          className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium transition-all hover:brightness-95"
+          className="group inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium transition-all hover:brightness-95"
           style={{ backgroundColor: '#D8F9B8', color: '#1D2020' }}
         >
           Book a free scoping call
+          <ArrowUpRight
+            size={16}
+            className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+          />
         </Link>
 
         <p

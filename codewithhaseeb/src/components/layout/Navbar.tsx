@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 import { siteConfig } from '@/lib/siteConfig';
 import { cn } from '@/lib/utils';
@@ -69,10 +69,14 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('book_call_click', { location: 'navbar' })}
-            className="ml-2 rounded-full px-5 py-2 text-sm font-medium transition-colors hover:brightness-95"
+            className="group ml-2 inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all hover:brightness-95"
             style={{ backgroundColor: '#D8F9B8', color: '#1D2020' }}
           >
             Book a call
+            <ArrowUpRight
+              size={14}
+              className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+            />
           </Link>
         </nav>
 
@@ -123,10 +127,14 @@ export function Navbar() {
                   setMobileOpen(false);
                   trackEvent('book_call_click', { location: 'mobile_nav' });
                 }}
-                className="inline-flex rounded-full px-6 py-3 font-medium transition-colors hover:brightness-95"
+                className="group inline-flex items-center gap-2 rounded-full px-6 py-3 font-medium transition-colors hover:brightness-95"
                 style={{ backgroundColor: '#D8F9B8', color: '#1D2020' }}
               >
                 Book a call
+                <ArrowUpRight
+                  size={15}
+                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+                />
               </Link>
             </li>
           </ul>

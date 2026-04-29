@@ -5,12 +5,8 @@ export function LogoBar() {
 
   return (
     <section
-      className="py-12 md:py-14 overflow-hidden"
-      style={{
-        backgroundColor: '#F3F2F1',
-        borderTop: '1px solid #EBEBEA',
-        borderBottom: '1px solid #EBEBEA',
-      }}
+      className="pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden"
+      style={{ backgroundColor: '#F3F2F1' }}
     >
       {/* Fade mask on edges */}
       <div
@@ -53,8 +49,12 @@ export function LogoBar() {
 function LogoItem({ name }: { name: string }) {
   return (
     <span
-      className="text-xl md:text-[22px] font-medium whitespace-nowrap"
-      style={{ color: 'rgba(43,45,45,0.35)' }}
+      className="logo-item text-lg font-medium whitespace-nowrap tracking-tight transition-all duration-200"
+      style={{
+        fontFamily: 'var(--font-ibm)',
+        color: '#1D2020',
+        opacity: 0.40,
+      }}
     >
       {name}
     </span>

@@ -4,40 +4,38 @@ For humans. Not AI. Read top to bottom. Short. Visual. Opinionated.
 
 ---
 
-## Part 1 / Status check
+## Part 1 / Status check (re-verified)
 
-### Done (roughly 35%)
-- Next 16, React 19, Tailwind 4, bun, TS scaffolded.
-- Env wired: GA4, Clarity, Resend, Calendly.
-- `layout.tsx`, `page.tsx`, `globals.css`.
-- 9 homepage sections built: Hero, LogoBar, NumbersTicker, ServicesGrid, FeaturedWork, ForFoundersEnterprise, Testimonials, Process, FinalCTA.
-- Navbar, Footer, Section.
-- 14 UI primitives (shadcn + MagicUI).
-- `CaseStudyCard`, `siteConfig`, `analytics`, `utils`, `case-studies-meta.ts`.
+### Good news since last pass
+- Surface alternation is **done on most sections**. Hero is dark `#1D2020`. NumbersTicker is deep teal `#031F2A`. FeaturedWork is white. ForFoundersEnterprise is dark. FinalCTA is dark. ServicesGrid is cream `#F3F2F1`.
+- Hero diagram replaced with a real product-trace panel.
+- Lime is already wired into FinalCTA button.
+- Font swap to Bricolage Grotesque landed.
 
-### Broken right now
-1. `/api/contact/` folder exists with no `route.ts`. Contact form 404s.
+### Still broken
+1. `/api/contact/` folder exists with no `route.ts`. Form still 404s.
 2. `page.tsx` references `/og/home.png`. File does not exist.
-3. `public/` only has the 5 default Next SVGs. No logos. No favicons. No covers.
-4. `Hero.tsx` has a dead `useRef` import.
-5. Every section uses the same cream background. Nine identical bands stacked. This is why it feels flat.
+3. `public/` only has the 5 default Next SVGs. No client logos yet.
+4. `Hero.tsx` has a dead `useRef` import (line 3).
+5. **Process** (`py-16 md:py-24`) and **Testimonials** (`py-16 md:py-24`) are the two remaining sections with old cramped spacing.
+6. **LogoBar uses `py-12 md:py-14`**, which the user correctly called out as feeling off. See Part 5.
 
-### Missing
-Routes: `/work`, `/work/[slug]`, `/contact` page, optional `/about`.
-Content: 0 of 8 MDX case studies.
-SEO: `sitemap.ts`, `robots.ts`, `not-found.tsx`, `public/llms.txt`, JSON-LD.
-Assets: logos, favicons, OG images, case study covers.
+### Still missing
+- Routes: `/work`, `/work/[slug]`, `/contact` page, optional `/about`.
+- 0 of 8 MDX case studies.
+- SEO: `sitemap.ts`, `robots.ts`, `not-found.tsx`, `llms.txt`, JSON-LD.
+- Assets: logos, favicons, OG images, case study covers.
 
-Specs for all of it live in `02-CASE-STUDIES.md`, `03-COMPONENTS-CODE.md`, `04A-ASSETS-NEEDED.md`, `05-SEO-PERFORMANCE-PATCH.md`. Follow those.
+Specs in `02-CASE-STUDIES.md`, `03-COMPONENTS-CODE.md`, `04A-ASSETS-NEEDED.md`, `05-SEO-PERFORMANCE-PATCH.md`.
 
-**Do not ship more pages before the soul fix in Part 2.** No point ship­ping 8 case studies onto a dull shell.
+Do not ship missing pages before the fixes in Parts 2 through 5 land.
 
 ---
 
 ## Part 2 / Three AI tells to kill first
 
 ### Tell 1. Em dashes
-Found 28 in the codebase. The single biggest giveaway.
+28 found in the codebase. The single biggest giveaway.
 
 Banned: `—` (U+2014) and `–` (U+2013).
 
@@ -47,7 +45,7 @@ Use instead:
 - Parentheses `( )` for an aside.
 - A line break for dramatic pause.
 
-Examples (current / better):
+Examples:
 
 | Current | Better |
 |---|---|
@@ -59,7 +57,7 @@ Examples (current / better):
 Global search `—` across `src/`. Delete every one. Read each replacement out loud. If it breaks, rewrite into two sentences.
 
 ### Tell 2. Arrow characters in button copy
-Found 9 instances of `→` glued to button and link text. Junior-dev-on-Friday energy.
+9 instances of `→` glued to button and link text. Junior-dev-on-Friday energy.
 
 Banned in text: `→`, `->`, `»`, `>`.
 
@@ -81,241 +79,367 @@ Use instead, ranked best to worst:
 Do this once, reuse everywhere.
 
 ### Tell 3. Lucide icons in pastel squares
-Every ServicesGrid card has a lucide icon (`Rocket`, `Bot`, `Mic`) in a `bg-[#F3EEFF]` rounded square. Every SaaS site since 2022 does this. Reads as template. Part 3 has the fix.
+Every ServicesGrid card has a lucide icon (`Rocket`, `Bot`, `Mic`) in a `bg-[#F3EEFF]` rounded square. Every SaaS site since 2022 does this. Reads as template. Part 4 has the fix.
 
 ---
 
-## Part 3 / Images. Where they go. What they are.
+## Part 3 / Things to steal from finns.framer.website
 
-The site has zero real images. That is the reason it feels like a spec document. No amount of animation or copy fixes this. **Real images, real restraint.**
+The user specifically called out four things. Doc them all with the real Framer class references + the exact CSS values so the AI knows what to build.
 
-No stock photography. No AI-generated-looking slop. No "abstract brain network" illustrations. Real things from real work.
+### A. The pill container / header group (`framer-1hs84gn-container`)
 
-### Hero
-Kill the three-boxes-with-dashed-lines diagram. It reads as a PowerPoint slide.
+**What it is in Finns:** the little grouped element that holds multiple pills or logos in one horizontal row, with tight spacing and a fixed height. Finns uses it for the logo bar and for the `● Available` status group in the hero.
 
-Pick one of three. Commit once. Ship.
-
-**A. Tilted product screenshot.**
-Screenshot of Aphra's dashboard or Capwell's CRM, cropped to a browser chrome, rotated about 8 degrees, soft shadow. One floating metric chip pinned on top ("17,234 active users · live"). This is what Linear, Vercel, Resend do. It works because it is *your actual software.*
-
-**B. Black and white team photograph.**
-High contrast, one light source, plain wall, tight crop on 2 or 3 faces lit by laptop glow. Shot on a phone in 20 minutes. This is what consultancies and studios do when their work is not photographable.
-
-**C. 6 second muted product video.**
-Loop of an agent trace running. MP4 under 1MB. `<video autoplay muted loop playsinline>`. Linear and Arc do this. Most modern, hardest to copy.
-
-Do not: ship the diagram, ship an "AI brain" illustration, ship an Unsplash hero.
-
-### LogoBar
-8 real SVG logos. Uniform height 32px. Grayscale with 55% opacity by default. Full color and opacity 1 on hover. Slow marquee, 45s cycle.
-
-No "Trusted by" label above. The row of logos is self explanatory.
-
-Sources: download from each client's website footer. If no SVG available, ask the client for a PNG.
-
-### NumbersTicker
-No images. Bricolage numbers at 72 to 96px on a dark surface carries the section.
-
-Optional texture: 4% opacity white grid lines on `#1D2020`. That is it.
-
-### ServicesGrid (the lucide square fix)
-One visual per card. Ranked options:
-
-1. **Custom 2 tone illustrations.** 48x48, dark outline, one lime fill. Hire a Dribbble illustrator, $200 for 6 icons, 2 day turnaround. This is the move that makes the site feel bespoke. Everything else here reads as default.
-2. **Isometric or editorial icons.** Iconduck or Streamline. Free, more personality than lucide.
-3. **Emoji.** Single 40px emoji per card (`🧠 🎙️ ⚡ 🔧 📊 🤖`). Reads as confident and human. Stripe homepage uses emoji. On Windows render via twemoji to stay consistent.
-
-Do not use lucide in a pastel square.
-
-### FeaturedWork
-One editorial cover image per case study. 16:9. All covers processed through the same filter pass so they read as a set: slight darken (brightness 0.95), subtle vignette, 16px radius.
-
-| Client | Cover image |
-|---|---|
-| Aphra | Mobile app screenshot, real chat thread |
-| Capwell | CRM dashboard, PII blurred |
-| KCNL | Product photograph or dashboard snapshot |
-| Tula | YC Demo Day slide or clean app screenshot |
-| Medmatch / FCS / Bestinform | Dashboard screenshot each |
-| Sony PlayStation | Logo on black card with subtle sheen. Do not fake permission on product screenshots |
-
-When a screenshot is not available yet: a flat color block with the client's logo centered, oversized, cropped at the edges, plus a monospaced ID tag in the corner like `CS_04 / FCS`. This is legit editorial treatment (see Koto, Mother, Pentagram). Not a cop-out.
-
-### ForFoundersEnterprise (split screen)
-One photograph per half. Heavy color grade so both sides read as one system.
-
-Founders side: photo of a founder at a whiteboard, or an early-stage workspace.
-Enterprise side: conference room or industrial environment that matches your actual enterprise clients.
-
-If you cannot source real photos: left side, blurred code on a monitor. Right side, architectural close-up of a building corner, high contrast. Unsplash is acceptable here **only** if both sides get the same color grade.
-
-### Testimonials
-Real headshot per quote. LinkedIn headshot size, 64px circle, color. If you do not have photo permission, use the client's company logo instead.
-
-Do not use initials in a colored circle. That is the Gmail fallback and it is the laziest signal possible.
-
-### Process
-No images. The numbers are the visual. Bricolage at 96px, lime, left aligned. `01`, `02`, `03`, `04`.
-
-Optional: one small screenshot inside the Build step showing a real PR or Loom thumbnail. Makes the process feel real.
-
-### FinalCTA
-No image. Dark surface. Big headline. One lime button. Empty space is the design. Resist the urge to fill it.
-
-### Footer
-No image. Monospaced sitemap. Small mono line at the bottom: `Built in Karachi. Code with Haseeb. 2026.`
-
----
-
-## Part 4 / Icons are soulless. Fix them.
-
-Lucide is a great library. It is also the most overused library on startup sites in 2026. Using default lucide in a pastel square is the visual equivalent of "Hi, I built this in a weekend from a template."
-
-Three paths, in order of how much soul it adds:
-
-### Path 1. Commission custom (recommended)
-Brief a Dribbble illustrator. $200. Reference: Stripe product icons, Linear method icons, Raycast icons.
-
-Deliverables:
-- 6 icons for ServicesGrid (LLM app builds, AI agents, Voice AI, Cost and eval, Automations, Senior engineering).
-- Same 2 tone system: dark line work on transparent, one lime fill mark per icon.
-- SVG, 48x48 viewbox, optimized.
-- 2 day turnaround.
-
-### Path 2 (editorial icon pack)
-Buy or download a cohesive set. Not the first result on Flaticon.
-
-Good sources:
-- [iconduck.com](https://iconduck.com) (free, curated)
-- [streamlinehq.com](https://streamlinehq.com) (paid, massive, high quality)
-- [untitled-ui.com/icons](https://untitled-ui.com/icons) (free, Figma first)
-- [tabler-icons.io](https://tabler-icons.io) (free, looks less "default" than lucide)
-
-Pick one pack. Use one weight. Use one style. No mixing.
-
-### Path 3. Emoji (ship today)
-40px emoji per card. Keep them consistent-feeling (all rendered, no flag-style emoji mixed with object-style).
-
-Render with twemoji for cross-platform consistency:
-
-```tsx
-import { Twemoji } from 'react-emoji-render';
-// or inline SVG from jdecked/twemoji
+**CSS (from the scraped HTML):**
+```css
+flex: none;
+height: 32px;
+position: relative;
+width: 600px;
 ```
 
-Stripe homepage uses emoji. Notion uses emoji. It reads as confident and human.
+**Why ours feels off:** our LogoBar uses `py-12 md:py-14`, which creates a fat vertical section that dwarfs 32px logos. Finns keeps the logo row itself at 32px tall and lets the *surrounding section* breathe (120px top and bottom).
 
-**None of these live in a pastel rounded square.** Let the icon breathe on the card surface.
+**Fix for our LogoBar:**
+```tsx
+<section
+  className="pt-24 pb-20 md:pt-28 md:pb-24 overflow-hidden"
+  style={{ backgroundColor: '#F3F2F1' }}
+>
+  <div className="container-tight">
+    {/* inner row is tight */}
+    <div className="h-8 flex items-center justify-center gap-10">
+      {/* 32px tall logos */}
+    </div>
+  </div>
+</section>
+```
+
+The rule: **outer section = generous (96 to 120px), inner row = tight (32px).** Our current version inverts this.
+
+### B. Bento grid (from `framer-fo6qp1` + `framer-1hmasul`)
+
+Finns uses a bento layout for the "What we offer" section. Extracted CSS:
+
+```css
+.framer-fo6qp1 {
+  display: grid;
+  gap: 16px;
+  grid-auto-rows: min-content;
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  grid-template-rows: repeat(2, min-content);
+  max-width: 1280px;
+}
+/* Mobile */
+@media (max-width: 810px) {
+  .framer-fo6qp1 { grid-template-columns: repeat(2, minmax(50px, 1fr)); }
+}
+@media (max-width: 500px) {
+  .framer-fo6qp1 { grid-template-columns: repeat(1, minmax(50px, 1fr)); }
+}
+```
+
+**What makes it a bento and not a boring grid:**
+- Uneven card sizes. Some cards span 2 columns, some span 1. One card spans 2 rows.
+- 16px gap, not 24. Cards feel snug, not floating.
+- Each card is 300px tall with 24px inner padding.
+- `border-radius: 24px` on cards. Rounder than ours (currently 12 to 16px).
+
+**Apply to ServicesGrid:**
+Replace the 3-column uniform grid with a bento. 6 services. Layout:
+
+```
+┌──────────────┬──────┬──────┐
+│  Featured    │      │      │
+│  (2 cols)    │  2   │  3   │
+│              │      │      │
+├──────┬───────┴──────┼──────┤
+│      │              │      │
+│  4   │  5 (2 cols)  │  6   │
+│      │              │      │
+└──────┴──────────────┴──────┘
+```
+
+One hero card (spans 2 cols), one wide middle card (spans 2 cols), four regular. Mix sizes, not content.
+
+```tsx
+<div className="grid gap-4 md:grid-cols-4 md:auto-rows-[300px]">
+  <div className="md:col-span-2">{/* featured service */}</div>
+  <div className="md:col-span-1">{/* service 2 */}</div>
+  <div className="md:col-span-1">{/* service 3 */}</div>
+  <div className="md:col-span-1">{/* service 4 */}</div>
+  <div className="md:col-span-2">{/* service 5, wide */}</div>
+  <div className="md:col-span-1">{/* service 6 */}</div>
+</div>
+```
+
+Gap 16px. Card radius 24px. Card padding 24px. Card background white on cream section. No border, soft shadow on hover only.
+
+### C. The icon container (`framer-o5sai9`)
+
+This is the good icon style the user pointed to. Exact CSS from the HTML:
+
+```css
+.framer-o5sai9 {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgb(231, 230, 228);   /* cream-adjacent border */
+  border-radius: 10px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The icon SVG inside */
+.framer-1bqt9gf-container { width: 18px; height: 18px; }
+```
+
+**What this means:** Finns does **not** use emoji. They do **not** use lucide in a pastel square. They use a **small white square with a 1px warm-cream border and a tiny 18px monoline icon inside**. The icon itself is clean, editorial, monoline (single-weight strokes), not the slightly chunky lucide style.
+
+**How to get this look:**
+1. **Tabler Icons** (`@tabler/icons-react`) or **Untitled UI icons** or **Lucide set to `strokeWidth={1.5}`**. Tabler is the closest match to Finns' style, free, 4000+ icons.
+2. Wrap each icon in a 28px (small) or 40px (service card) container.
+3. Border: `1px solid #E7E6E4`.
+4. Radius: `10px` on small icons, `14px` on 40px icons.
+5. Background: `#FFFFFF`.
+6. Icon inside at 18px (small) or 24px (large), stroke 1.5.
+
+```tsx
+function IconChip({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <div
+      className="w-10 h-10 flex items-center justify-center bg-white"
+      style={{
+        border: '1px solid #E7E6E4',
+        borderRadius: '14px',
+      }}
+    >
+      <Icon size={20} strokeWidth={1.5} style={{ color: '#1D2020' }} />
+    </div>
+  );
+}
+```
+
+No pastel fill. No purple. Just white with a warm border. This is a small change with huge payoff.
+
+**Emoji idea from last round is retracted.** User hated it. Going with Tabler icons + white chip.
+
+### D. Spacing (the whole site feels cramped)
+
+Real data from Finns' CSS:
+- **Hero section padding:** `220px 40px 0` on desktop (yes, 220 on top).
+- **Signature sections:** `160px 24px` or `120px 24px`.
+- **Dense sections:** `80px 32px`.
+- **Card inner padding:** `24px`.
+- **Card gap within grids:** `16px`.
+- **Container max-width:** `1280px`.
+
+Ours uses `py-16 md:py-24` (64 to 96px) on most sections. That is half of what Finns uses.
+
+**Revised spacing rule:**
+
+| Section | New padding (top / bottom) | Why |
+|---|---|---|
+| Hero | `pt-40 pb-32 md:pt-48 md:pb-40` (160 to 192 / 128 to 160) | Hero needs air |
+| LogoBar | `pt-24 pb-20 md:pt-28 md:pb-24` (96 to 112 / 80 to 96) | Signal band |
+| Signature (NumbersTicker, ForFoundersEnterprise, FinalCTA) | `py-32 md:py-40` (128 to 160) | Already correct. Keep. |
+| Standard (ServicesGrid, FeaturedWork, Process, Testimonials) | `py-24 md:py-32` (96 to 128) | Currently 64 to 96. **Bump up.** |
+
+**Fix Process and Testimonials today:** change `py-16 md:py-24` to `py-24 md:py-32`.
+
+**Fix LogoBar:** change `py-12 md:py-14` to `pt-24 pb-20 md:pt-28 md:pb-24`. Keep the inner row tight.
 
 ---
 
-## Part 5 / Polish pass
+## Part 4 / Icons (the fix, final answer)
 
-The 20 small things that separate agency work from template work.
+User's feedback: **emoji are annoying, lucide-in-pastel-squares are soulless, the Finns style (`o5sai9`) is the target.**
 
-### Spacing
-Stop using `py-16 md:py-24` on everything.
+### The target style
+White square. 1px warm cream border `#E7E6E4`. Radius `10px` to `14px`. One monoline icon inside, stroke weight 1.5, dark `#1D2020` color. No color fill. No pastel. No lime. Subtle.
 
-- Hero: `pt-32 pb-40` (bottom air matters)
-- Signature sections (NumbersTicker, ForFoundersEnterprise, FinalCTA): `py-32 md:py-40`
-- Dense sections (ServicesGrid, FeaturedWork): `py-20 md:py-28`
+### Implementation path (ranked)
 
-Asymmetry reads as intentional. Uniformity reads as cheap.
+**1. Tabler Icons (ship this week)**
+- `bun add @tabler/icons-react`
+- 4000+ icons, monoline, stroke-based, closest to Finns' style
+- Use `stroke={1.5}` and `size={20}` for large cards, `size={14}` for small.
+- Free, MIT licensed.
+
+```tsx
+import { IconBrain, IconMessageChatbot, IconMicrophone, IconChartBar, IconGitBranch, IconCode } from '@tabler/icons-react';
+```
+
+**2. Lucide with stroke tuning (alternative, no new dep)**
+- Already installed. Set `strokeWidth={1.5}` globally.
+- Slightly chunkier than Tabler, but passable.
+
+**3. Untitled UI Icons (most premium, manual)**
+- Download from untitledui.com/icons.
+- Copy individual SVGs you need into `src/components/ui/icons/`.
+- Best looking. Most work to set up.
+
+**Pick #1 unless you have time for #3.**
+
+### Commissioning custom (later)
+When budget allows, commission 6 custom 2-tone icons matching the target style from a Dribbble illustrator. $200, 2 days. Defer until everything else ships.
+
+---
+
+## Part 5 / Where images go (real images, no stock)
+
+Covered in detail before, kept tight here.
+
+| Section | Image |
+|---|---|
+| Hero | Pick ONE: tilted Aphra/Capwell product screenshot, OR B&W team photo, OR 6s muted product video loop. Kill the diagram. |
+| LogoBar | 8 real SVG client logos. 32px tall. Grayscale default, color on hover. |
+| NumbersTicker | No images. Bricolage numbers carry it. |
+| ServicesGrid | Tabler icons in white chip (Part 4). Not emoji. Not lucide-in-pastel. |
+| FeaturedWork | One 16:9 cover per case study. Screenshots where possible. Logo-on-color-block where not. Unified color grade across the set. |
+| ForFoundersEnterprise | One photograph per half, heavy color grade. |
+| Testimonials | Real LinkedIn headshots, 64px circle, color. Or company logo if no photo permission. Never initials in a circle. |
+| Process | No images. Numbers `01 / 02 / 03 / 04` in Bricolage 96px lime are the visual. Optional tiny PR or Loom screenshot in step 2. |
+| FinalCTA | No image. Empty space is the design. |
+| Footer | No image. Monospaced sitemap. |
+
+Do not: Unsplash heroes, AI-generated brain illustrations, 3D abstract shapes, initials in colored circles.
+
+---
+
+## Part 6 / Expand testimonials (from old `/Users/haseeb/Documents/Haseeb portfolio website/index.html`)
+
+Current site has 3 testimonials. Old site had 7 named reviews with real attribution. Add these 7 to `siteConfig.testimonials`. They are real, verifiable, and come from named clients.
+
+Drop this into `src/lib/siteConfig.ts` `testimonials: [...]`:
+
+```ts
+{
+  body: "Muhammad is an extremely skilled developer. I brought him a project that multiple developers said wasn't possible. He took it on, knocked it out of the park, and met our tight deadline with ease. We will be working with him on many more projects.",
+  attribution: 'Luke Blackamore',
+  meta: 'Upwork · Senior Full Stack project',
+},
+{
+  body: "Muhammad is such a skilled developer. There was nothing he wasn't able to do with our project. Even with adversity, he overcame it with great communication and timely responses despite the time difference. Professional. 10/10.",
+  attribution: 'Ahmad Rashid',
+  meta: 'Upwork · Full Stack build',
+},
+{
+  body: "Haseeb did an exceptional job and completed the task with quality. Awesome to work with, no fuss, professional, easy to communicate with. 10/10 recommend him.",
+  attribution: 'Lim Jun Wei',
+  meta: 'Upwork · Data & AI project',
+},
+{
+  body: "Muhammad quickly pulled a large amount of data for our team's needs. Extremely flexible and responsive as we requested additional data scraping and analysis. We would definitely recommend his work to others.",
+  attribution: 'Kate',
+  meta: 'Upwork · Data engineering',
+},
+{
+  body: "Haseeb delivered good work on this data scraping project. His communication during the project was top-notch and his skills were strong. When I needed additional help to save my team time, he was forthcoming about cost and provided great solutions to save money. I will work with him again.",
+  attribution: 'Kurt Uhlir',
+  meta: 'Upwork · Data engineering',
+},
+{
+  body: "Muhammad was awesome to work with. Very professional, easy to work with and to communicate with.",
+  attribution: 'Zachary Jones',
+  meta: 'Upwork · Engineering',
+},
+{
+  body: "Muhammed did an excellent job and completed the assignment to a high quality and on time.",
+  attribution: 'Vishal Patel',
+  meta: 'Upwork · Engineering',
+},
+```
+
+That brings total testimonials to **10**, named, verifiable. This is a huge trust boost and it was already sitting in the old site.
+
+**Display rule:** carousel or 2-column masonry with 5 each side. Do NOT show all 10 at once in a 10-card grid, that looks desperate. One big featured quote at 32 to 40px, the rest smaller in a secondary row or behind a "See more" toggle.
+
+---
+
+## Part 7 / Polish pass (kept, unchanged substance)
 
 ### Typography
-- Body copy: 18px on desktop. Not 16px. Confident.
-- Max line length: 60ch. Current paragraphs stretch past 720px and feel thin.
-- Kill `font-bold` in body paragraphs. Use italic. Bricolage italic is the good stuff.
-- Headlines: `letter-spacing: -0.03em` on display text. Already set, keep it.
-- Mono labels (eyebrows, small caps): IBM Plex Mono, 12px, tracking wider, lowercase (not uppercase, uppercase is tired).
+- Body copy: 18px on desktop. Not 16px.
+- Max line length: 60ch.
+- Kill `font-bold` in body. Use italic.
+- Headlines: `letter-spacing: -0.03em`. Already set.
+- Mono labels: IBM Plex Mono, 12px, lowercase tracking (not uppercase).
 
 ### Borders and shadows
-- Cream sections: no borders on cards. Shadow only. `shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_8px_24px_rgba(0,0,0,0.04)]`.
-- Dark sections: 1px inside border `rgba(255,255,255,0.06)`. No shadow (shadows on dark look muddy).
-- Hover: translate Y by -2px, shadow deepens. Never `scale(1.02)`. Scaling on hover is 2019 energy.
+- Cream sections: no borders on cards. Soft shadow only. `shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_8px_24px_rgba(0,0,0,0.04)]`.
+- Dark sections: 1px inside border `rgba(255,255,255,0.06)`. No shadow.
+- Hover: translate Y by -2px, shadow deepens. Never `scale(1.02)`.
 
-### Color discipline
-Every color needs one job. Right now purple has five.
-
-| Color | Hex | One job |
+### Color discipline (one job per color)
+| Color | Hex | Job |
 |---|---|---|
-| Lime | `#D8F9B8` | Primary CTA on dark surfaces. Signature highlight. |
+| Lime | `#D8F9B8` | Primary CTA on dark. Signature highlights. |
 | Purple | `#7C3AED` | Text link hover underline. Nothing else. |
-| Ink | `#1D2020` | Headlines on light surfaces. |
-| Off white | `#F1F0EE` | Headlines on dark surfaces. |
+| Ink | `#1D2020` | Headlines on light. |
+| Off-white | `#F1F0EE` | Headlines on dark. |
 | Cyan | `#0099FF` | Inline code, live indicator dots. |
-
-If you catch yourself using a color for a second job, rebuild the palette.
 
 ### Corners (mixed, not uniform)
 - Buttons: `rounded-full`
-- Cards: `rounded-2xl` (16px)
-- Images: `rounded-2xl` on cream, `rounded-xl` on dark
+- Bento cards: `rounded-3xl` (24px, match Finns)
+- Regular cards: `rounded-2xl` (16px)
+- Icon chips: `rounded-[10px]` or `rounded-[14px]`
 - Tags and chips: `rounded-md` (6px)
 - Input fields: `rounded-lg` (10px)
 
-Consistent system. Not one radius for everything.
-
 ### Micro-interactions (one per page, not per component)
-Right now every card hovers, every button hovers, every link hovers. That is why it feels busy without feeling alive.
+Pick 2 or 3 signature moments:
+- Navbar on scroll: wordmark shrinks to monogram.
+- Case study card hover: cover image scales 1.02, metric chip slides in.
+- NumbersTicker: numbers tick up on enter viewport.
 
-Pick two or three signature interactions and commit:
-- Navbar: on scroll, logo shrinks from wordmark to monogram.
-- Case study card hover: cover image scales 1.02, a metric chip slides in from the corner.
-- NumbersTicker: numbers tick up on enter viewport (already planned).
+Nothing else hovers.
 
-Everything else: no hover treatment.
-
-### Surface alternation (the single biggest lift)
-Stop stacking cream on cream. Alternate:
-
+### Surface alternation (mostly done, keep)
 | Section | Surface |
 |---|---|
-| Hero | Dark `#1D2020` |
-| LogoBar | Cream `#F3F2F1` |
-| NumbersTicker | Deep teal `#031F2A` |
-| ServicesGrid | Cream `#F3F2F1` |
-| FeaturedWork | White `#FFFFFF` |
-| ForFoundersEnterprise | Dark split (founders `#1D2020`, enterprise `#031F2A`) |
-| Testimonials | Cream `#F3F2F1` |
-| Process | White `#FFFFFF` |
-| FinalCTA | Dark `#1D2020` |
-
-Never two cream sections in a row. Never two dark sections in a row.
+| Hero | Dark `#1D2020` ✅ |
+| LogoBar | Cream `#F3F2F1` ✅ |
+| NumbersTicker | Deep teal `#031F2A` ✅ |
+| ServicesGrid | Cream `#F3F2F1` ✅ |
+| FeaturedWork | White `#FFFFFF` ✅ |
+| ForFoundersEnterprise | Dark `#1D2020` ✅ (split with `#031F2A` optional) |
+| Testimonials | Cream `#F3F2F1` ✅ |
+| Process | White `#FFFFFF` ✅ |
+| FinalCTA | Dark `#1D2020` ✅ |
 
 ---
 
-## Part 6 / Ship order (practical, not aspirational)
+## Part 8 / Ship order (practical)
 
-Do these six. In this order. Then stop and look.
+Do these. In this order. Then stop and look.
 
-1. **Text pass.** Grep `—`. Grep `→`. Delete all of them. Rewrite. 1 hour.
-2. **Surface alternation.** Apply the table in Part 5 to each section's outer `style={{ backgroundColor }}`. 1 hour.
-3. **Real logos.** Download 8 client logos into `public/logos/`. Wire LogoBar to render real SVGs. 45 min.
-4. **Hero visual decision.** Pick A, B, or C from Part 3. Commit. Build once. 2 to 4 hours depending on option.
-5. **Icon fix.** Emoji today (30 min) or commission custom for the week ($200, 2 day wait).
-6. **Color cleanup.** Strip purple everywhere except text link hover. Add lime as primary CTA color on dark. 1 afternoon.
+1. **Text pass.** Grep `—` and `→`. Delete all in copy. Rewrite. 1 hour.
+2. **Spacing fix.** LogoBar to `pt-24 pb-20 md:pt-28 md:pb-24`. Process and Testimonials to `py-24 md:py-32`. 15 min.
+3. **Icon swap.** `bun add @tabler/icons-react`, replace the 6 lucide-in-pastel-squares with Tabler-in-white-chips per Part 4. 1 hour.
+4. **Bento grid.** Rebuild ServicesGrid layout per Part 3B. Mix 1- and 2-col cards. 1 to 2 hours.
+5. **Testimonials expansion.** Paste 7 new reviews from Part 6 into `siteConfig.ts`. Rework Testimonials.tsx to display one featured + a grid of the rest. 45 min.
+6. **Real logos.** Download 8 client SVGs into `public/logos/`. Wire LogoBar. 45 min.
+7. **Hero visual decision.** Still pending. Pick A, B, or C from Part 5.
+8. **Color cleanup.** Strip purple except text link hover. 30 min.
+9. **Then** move to Part 1's missing pieces: `/api/contact/route.ts`, `/contact` page, `/work`, `/work/[slug]`, MDX case studies, sitemap, robots, 404, llms.txt, JSON-LD, OG images, favicons.
 
-Then look at the site. Decide what hurts next.
-
-After soul pass, circle back to Part 1's missing pieces: `/api/contact/route.ts`, `/contact`, `/work`, `/work/[slug]`, 8 MDX case studies, `sitemap.ts`, `robots.ts`, `not-found.tsx`, `llms.txt`, JSON-LD, OG images, favicons.
+Target: steps 1 to 8 in one focused afternoon. Step 9 in the next session.
 
 ---
 
-## Part 7 / References. Go look.
-
-30 minutes. Do not copy layouts. Notice surface contrast, photo treatment, whitespace, restraint.
+## Part 9 / References
 
 - [linear.app](https://linear.app). Product screenshots. Dark hero. Restrained motion.
 - [vercel.com](https://vercel.com). Surface alternation. Real code as images.
 - [resend.com](https://resend.com). Restraint. One signature color.
 - [framer.com/new](https://framer.com/new). Bold type. Real product video.
 - [railway.com](https://railway.com). Dark, editorial, one pop.
-- [mother.design](https://mother.design). Agency site. Photo forward. Confident.
+- [mother.design](https://mother.design). Agency site. Photo forward.
 - [koto.studio](https://koto.studio). Case study treatment.
-- [workof.studio](https://workof.studio). Typography. Whitespace.
-- [finns.framer.website](https://finns.framer.website). The reference you liked. Look at how often they use dark sections.
+- [finns.framer.website](https://finns.framer.website). The reference. Specifically: their bento grid, their icon chips, their section padding.
 
 None of them use em dashes in button copy. None ship `→` as a text character. All of them have real images.
 
@@ -323,4 +447,4 @@ None of them use em dashes in button copy. None ship `→` as a text character. 
 
 ## One sentence
 
-The site does not need more text, more animations, or more features. It needs real images, real restraint, and to stop writing like a language model.
+The site does not need more text, more animations, or more features. It needs real images, real restraint, real spacing, and to stop writing like a language model.

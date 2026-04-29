@@ -12,9 +12,6 @@ export const metadata = {
   title: 'AI Engineering Team for Funded Startups | codewithhaseeb',
   description:
     'We ship production AI systems. Not demos that break. A 5-person senior engineering team building for YC-backed founders. Aphra (17K users). Capwell. Tula. Sony PlayStation.',
-  openGraph: {
-    images: ['/og/home.png'],
-  },
 };
 
 export default function HomePage() {
