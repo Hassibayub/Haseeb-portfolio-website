@@ -7,13 +7,15 @@ import { siteConfig } from '@/lib/siteConfig';
 import { trackEvent } from '@/lib/analytics';
 
 interface FinalCTAProps {
-  variant?: 'home' | 'services' | 'work' | 'about';
+  variant?: 'home' | 'services' | 'work' | 'about' | 'blog' | 'blog-post';
 }
 
 export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
   const isServices = variant === 'services';
   const isWork = variant === 'work';
   const isAbout = variant === 'about';
+  const isBlog = variant === 'blog';
+  const isBlogPost = variant === 'blog-post';
 
   const eyebrow = isServices
     ? 'ready to scope?'
@@ -21,7 +23,11 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
       ? 'see a match?'
       : isAbout
         ? 'let\'s talk'
-        : 'Ready to build?';
+        : isBlog
+          ? 'build'
+          : isBlogPost
+            ? 'next step'
+            : 'Ready to build?';
 
   const headline = isServices
     ? "Scope your project in a 30-minute call."
@@ -29,7 +35,11 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
       ? "See one that matches your project? Let's scope it."
       : isAbout
         ? "Let's see if we're a fit."
-        : "Let's see if we're a fit.";
+        : isBlog
+          ? "Reading's nice. Shipping's better."
+          : isBlogPost
+            ? "Thinking about a project like this?"
+            : "Let's see if we're a fit.";
 
   const subhead = isServices
     ? "We push back if the scope is wrong. That's a feature."
@@ -37,7 +47,11 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
       ? "30-minute call. We push back if we're not the right fit."
       : isAbout
         ? "30 minutes. Free. We're direct about what we can and can't do."
-        : "30 minutes, free, zero pressure. We'll tell you honestly if we're the right team. If we're not, we'll tell you who is.";
+        : isBlog
+          ? "If any of this maps to something you're building, the scoping call is free."
+          : isBlogPost
+            ? "30 minutes. Free. We'll tell you if we're a fit and, if not, who is."
+            : "30 minutes, free, zero pressure. We'll tell you honestly if we're the right team. If we're not, we'll tell you who is.";
 
   const ctaLabel = 'Book a scoping call';
 
@@ -47,7 +61,11 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
       ? 'work_final_cta'
       : isAbout
         ? 'about_final_cta'
-        : 'final_cta';
+        : isBlog
+          ? 'blog_final_cta'
+          : isBlogPost
+            ? 'blog_post_final_cta'
+            : 'final_cta';
 
   return (
     <section className="py-32 md:py-40" style={{ backgroundColor: '#1D2020' }}>
@@ -103,7 +121,7 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
             className="text-sm"
             style={{ color: 'rgba(255,255,255,0.25)' }}
           >
-            Reply within 24h · Taking 1 new project this month · Remote (UTC+5)
+            Reply within 24h · Taking new project this month · Remote (UTC+5)
           </p>
           {(isServices || isWork || isAbout) && (
             <>

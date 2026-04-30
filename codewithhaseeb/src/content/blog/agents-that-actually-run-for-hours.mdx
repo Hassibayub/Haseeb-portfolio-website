@@ -1,0 +1,140 @@
+---
+title: 'The difference between agent demos and agents that run for hours'
+excerpt: 'Most agent demos fail after minute 2. Here''s what actually breaks, and how to build agents that survive real workloads.'
+publishedAt: '2026-03-20'
+readingTime: 11
+category: 'engineering'
+tags: ['agents', 'langgraph', 'architecture', 'production']
+cover: ''
+coverAlt: ''
+relatedWork: ['capwell']
+draft: false
+---
+
+Every agent demo I've seen at a conference works beautifully. The agent calls a few tools, reasons step by step, produces a clean output. The audience nods. Someone in the back opens a laptop and starts scaffolding something similar.
+
+Two weeks later, they have a demo that also works beautifully. They put it in front of real data. It runs for 90 seconds, exhausts its context window, and either hallucinates a final answer or loops forever.
+
+This is not a fringe case. It's the default failure mode for agents built without explicit stop conditions.
+
+## Why most agent demos fail after minute 2
+
+The standard chain-first architecture works like this: define a sequence of tool calls, run them in order, collect outputs. This works perfectly for tasks with bounded scope and predictable step counts.
+
+Real tasks don't have bounded scope. A task like "research all insurance-eligible businesses in a geographic region and verify their current status" has no natural stopping point. The agent will keep calling tools as long as you let it. At some point:
+
+- The context window fills with intermediate outputs
+- The model starts confabulating results it hasn't actually computed
+- Or the agent detects ambiguity, asks a clarifying question, gets no answer, and retries indefinitely
+
+<Callout type="warning" title="Token blowup is silent">
+Unlike a crash or a timeout, context window exhaustion doesn't always throw an error. Some models will summarize earlier context automatically and continue with degraded recall. You can end up with a "completed" run that silently dropped half its work.
+</Callout>
+
+## LangGraph's state-first model
+
+LangGraph solves this by inverting the architecture. Instead of defining a sequence of tool calls, you define a state machine. Each node in the graph receives the current state, does exactly one thing, and returns an updated state. The graph decides which node to call next based on the state.
+
+This matters because it forces you to make something explicit that chain-first architectures leave implicit: **what are the valid states of this system, and when is it done?**
+
+In a chain, "done" means "reached the end of the chain." In a state machine, "done" is a node you explicitly route to when a stop condition is met.
+
+```ts title="src/agents/research-agent.ts" {12-17}
+import { StateGraph, END } from "@langchain/langgraph";
+
+interface ResearchState {
+  query: string;
+  records: ProcessedRecord[];
+  stepCount: number;
+  totalBudgetUsed: number;
+  confidence: number;
+}
+
+const graph = new StateGraph<ResearchState>({
+  channels: {
+    stepCount: { default: () => 0 },
+    totalBudgetUsed: { default: () => 0 },
+    confidence: { default: () => 0 },
+    records: { default: () => [] },
+    query: { default: () => '' },
+  },
+});
+
+// Route: check stop conditions before every tool call
+function shouldContinue(state: ResearchState): "continue" | "end" {
+  if (state.stepCount >= 50) return "end";
+  if (state.totalBudgetUsed >= 10_000_000) return "end"; // 10M token budget
+  if (state.confidence >= 0.95) return "end";
+  return "continue";
+}
+```
+
+## Explicit stop conditions: the four that matter
+
+Every production agent needs at least two of these four stop conditions. Preferably three.
+
+**Step budget.** The maximum number of tool calls or reasoning steps before the agent is forced to summarize and halt. This is your backstop. If everything else fails, the step budget fires. For most tasks, 50-100 steps is enough. If you think you need 500 steps, you probably need to restructure the task into multiple smaller agents.
+
+**Token budget.** The maximum number of tokens the agent is allowed to use across the entire run. This is more precise than step count because not all steps are equal. A step that fetches a 50,000-token document costs much more than a step that calls a lookup API. Track cumulative token usage in state and check it before each step.
+
+**Confidence threshold.** For tasks that produce a scored output, define what confidence level is "good enough." If the agent reaches 95% confidence on an extraction, there's no value in running another 20 steps to get to 97%. Stop, return the result, log the confidence score.
+
+**External signal.** For long-running agents (hours, not minutes), you want a kill switch. A flag in a database or a Redis key that the agent checks between steps. If the flag is set, halt gracefully. This is how you stop a runaway agent without killing the process.
+
+## How we structured Capwell's orchestrator
+
+The Capwell system processes 500,000 business records for lead qualification. It runs in three stages, each implemented as a separate LangGraph graph:
+
+**Stage 1: Record enrichment.** Fetch public data for each business (registration status, address verification, contact info). This is embarrassingly parallel. We run it with a worker pool, not a single agent. Each worker processes one record with a 30-step budget.
+
+**Stage 2: Qualification scoring.** For records that passed enrichment, run a more expensive reasoning pass. Is this business insurance-eligible? Does it match the client's ICP? This stage has both a step budget (20 steps) and a confidence threshold (0.88). If confidence is below 0.88 after 20 steps, the record is flagged for human review rather than auto-qualified.
+
+**Stage 3: Output synthesis.** Aggregate qualified records, generate the client-facing report, and write to the delivery format. Single agent, bounded by record count.
+
+```ts title="src/agents/qualification-agent.ts"
+// Stage 2: qualification with explicit stop conditions
+async function runQualification(record: EnrichedRecord): Promise<QualResult> {
+  const result = await graph.invoke({
+    record,
+    stepCount: 0,
+    tokenBudget: 500_000,
+    confidence: 0,
+    flags: [],
+  });
+
+  // If confidence didn't reach threshold, route to human review
+  if (result.confidence < 0.88) {
+    await flagForReview(record.id, result);
+    return { status: 'pending_review', confidence: result.confidence };
+  }
+
+  return { status: 'qualified', confidence: result.confidence, data: result };
+}
+```
+
+The three-stage structure matters for a second reason: it creates natural checkpoints. If stage 2 fails halfway through (network error, model outage), we don't re-run stage 1. We resume from the last checkpoint. Without explicit stages, a failure at step 200 means restarting from step 0.
+
+## Observability: you cannot debug an agent you can't trace
+
+A chain-first pipeline has a log. An agent has a trace. The difference matters when something goes wrong.
+
+In a chain, you log: "step 1 completed, step 2 completed, step 3 failed." In an agent, you need: "at state X, node Y was invoked with input Z, the model called tool A with parameters B, received response C, updated state to D, and routed to node E."
+
+LangGraph ships with LangSmith tracing built in. For Capwell we used it to debug two classes of issues that wouldn't have been visible from simple logs:
+
+- **Routing errors**: cases where the graph chose the wrong next node because a state field was ambiguous. The trace showed exactly which edge condition fired and why.
+- **Silent confidence inflation**: the qualification agent was occasionally assigning high confidence scores to records that had low-quality source data. The trace showed the model was treating "no contradicting evidence" as positive evidence. We patched the prompt and the confidence calibration.
+
+If you're building agents without distributed tracing, you're flying blind. The failure will happen. You won't know why.
+
+## The anti-pattern of "just add more tools"
+
+The fastest way to break an agent is to give it 40 tools and a general objective.
+
+Tool selection is a reasoning task. Every time the agent has to choose between 40 options, it's burning tokens on selection logic instead of task completion. Some models handle large tool sets well. Most don't, especially in multi-step contexts where the tool set needs to be evaluated repeatedly.
+
+The right number of tools for most agents is 5-8, selected for the specific task. If you need 40 tools to cover all cases, you need multiple agents with defined handoffs, not one agent with a big tool list.
+
+The agents that run for hours aren't the ones with the most tools. They're the ones with the tightest scope, the clearest stop conditions, and the most boring, predictable state machines underneath.
+
+Boring agents ship. Clever agents demo.

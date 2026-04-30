@@ -1,0 +1,67 @@
+---
+title: 'Ship in production or don''t ship at all'
+excerpt: 'Most AI demos don''t survive a real user. Here''s what "production" actually means and why it protects your client more than it protects you.'
+publishedAt: '2026-03-01'
+readingTime: 6
+category: 'opinion'
+tags: ['production', 'ai', 'engineering', 'principles']
+cover: ''
+coverAlt: ''
+relatedWork: ['aphra', 'capwell']
+draft: false
+---
+
+There's a version of shipping AI that looks like shipping but isn't. You have a working demo. It handles the happy path. The client is excited. You push it to production.
+
+Three days later, a real user does something the demo never anticipated, and the whole thing falls over. Not dramatically. Quietly. It returns a wrong answer, or a half-answer, or times out, and nobody knows.
+
+This is not a hypothetical. It's the most common failure mode I see in AI products built in 2024 and 2025.
+
+## What "production" actually means
+
+Production doesn't mean "deployed." Deployed is easy. A Heroku dyno and a paid API key is deployed.
+
+Production means the system can do four things that a demo can't:
+
+**1. It knows when it's failing.** Monitoring. Structured logs. Alerting on confidence scores below a threshold or extraction accuracy below baseline. If you can't tell your client "here's how many requests degraded this week and why," you don't have a production system.
+
+**2. It has retries and fallbacks.** Every external API call can fail. Every model can return garbage. A production system has an opinion about what to do when that happens. Retry with exponential backoff? Fall back to a simpler model? Surface the raw input to a human reviewer? Pick one. Hardcode it. Don't figure it out at 2am when the client calls.
+
+**3. Someone is on-call.** "On-call" doesn't mean a 24/7 NOC. It means someone has a phone number the client can reach, and someone will respond within 4 hours when something breaks. Most client complaints I've seen about AI contractors come from this gap: the system broke and nobody was reachable.
+
+**4. The degraded state is defined.** What happens when the AI returns low confidence? What happens when the upstream API is down? A degraded state isn't an error state. It's a slower, less capable path that still works. If you haven't designed the degraded state, you've designed a system that collapses under any non-ideal condition.
+
+## Three examples where "looks finished" didn't mean "is finished"
+
+**Aphra.** When we shipped the initial version of the real-time AI video avatar system, it handled 17,000 daily users within weeks of launch. What we discovered at scale that the demo never showed: certain camera angles and lighting conditions produced face-detection artifacts that made the avatar flicker for 200-300ms. Not a crash. Not a wrong answer. A barely perceptible visual artifact. On the demo, it never appeared. Under real user conditions with varied hardware and lighting, it appeared about 8% of the time. We caught it in monitoring before any user complained, pushed a patch in 48 hours, and logged the fix. A system without monitoring would have shipped this and never known.
+
+**Capwell.** The autonomous multi-agent system that processes 500,000 records. In testing, we ran it on clean data with consistent schema. In production, about 3% of records came in with a schema variation the agent's parser hadn't seen. Instead of crashing, the agent would silently drop those fields and continue. The output looked correct. The records were incomplete. We only caught it because we had a checksum validation layer that compared input field count to output field count. Without it, we'd have shipped 15,000 quietly incomplete records before anyone noticed.
+
+**A client I won't name.** We took over a handoff from another contractor. The system had been live for 3 months. It had no retry logic, no monitoring, and no fallback. The AI model it used had a hard rate limit the contractor hadn't accounted for. During peak hours, roughly 30% of requests were silently dropped. The client had no idea. When we told them, they'd been running their operations on data that was 30% incomplete for 3 months.
+
+<Quote attribution="Client, after post-mortem">
+We thought it was working. We just assumed the numbers felt a bit low because the AI was being conservative.
+</Quote>
+
+## The test I use before calling something done
+
+Before I tell a client something is ready for production, I ask: if 100 real users hit this tomorrow, would I be embarrassed?
+
+Not "would it crash." Would I be embarrassed. The standard is higher than functioning. It means:
+
+- The error messages are coherent, not raw JSON or stack traces
+- The degraded path is dignified, not silent corruption
+- The monitoring exists, so I'd actually know if something was wrong
+- The fallback works, so a model outage doesn't become a client outage
+
+If I'd be embarrassed, it's not done. Doesn't matter how polished the demo looks.
+
+## Why this protects the client more than it protects us
+
+The contractor framing of production quality is: we want to avoid complaints. That's the wrong framing.
+
+The client framing is: they're building their business on this. If the system returns incorrect data and they don't know, they make decisions based on that data. They trust it. They scale it. And six months later, the compounding error is much more expensive to fix than it would have been to build correctly the first time.
+
+When I push back on a client who wants to ship before I think something is production-ready, I'm not protecting my reputation. I'm protecting them from a failure mode they can't see yet.
+
+The clients who've stayed longest are the ones I've pushed back on hardest. They remember that we were direct when it would have been easier to ship and move on.

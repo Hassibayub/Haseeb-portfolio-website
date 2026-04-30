@@ -1,0 +1,132 @@
+---
+title: 'How we cut a $100K/month LLM bill to $1,500'
+excerpt: 'The short version: route by task, not by vendor loyalty. The long version is below.'
+publishedAt: '2026-02-14'
+updatedAt: '2026-02-20'
+readingTime: 9
+category: 'engineering'
+tags: ['llm', 'cost', 'routing', 'kcnl']
+cover: ''
+coverAlt: ''
+relatedWork: ['kcnl']
+draft: false
+---
+
+When KCNL came to us, their invoice processing pipeline was burning $100,000 a month on LLM API calls. Not because they were doing anything exotic. Because every single task, from extracting a vendor name to reasoning about ambiguous line items, was being routed to the same frontier model.
+
+This is the most common mistake teams make when they first ship AI into production. They pick the best model they can find, wire everything to it, and ship. It works. It costs a fortune.
+
+<CaseStudyInline slug="kcnl" />
+
+## What wasn't working
+
+KCNL processes roughly 100,000 invoices a month for European B2B clients. The original pipeline looked like this:
+
+1. Receive PDF or image invoice
+2. OCR to extract text
+3. Send full text to GPT-4 with a structured extraction prompt
+4. Parse response into their internal data model
+5. Flag edge cases for human review
+
+Step 3 was the problem. Every invoice, whether a simple 2-line receipt from a local supplier or a 40-line multi-currency purchase order, went through the same expensive call. The model was overkill for 80% of the work.
+
+<StatFigure value="$100K" label="Monthly LLM cost before the rewrite" />
+
+## The rewrite: route by task difficulty
+
+The fix has two parts: a task classifier and a tiered model fleet.
+
+**The classifier** runs first, before any expensive call. It's a lightweight model (we fine-tuned a quantized Llama 3.1 1B on their historical invoices) that scores incoming documents on a 3-point difficulty scale:
+
+- `simple`: single vendor, line items match a known catalog, no ambiguity
+- `moderate`: multiple line items, some non-standard formatting, minor OCR noise
+- `complex`: multi-page, multi-currency, partial or ambiguous vendor info, requires reasoning
+
+```ts title="src/lib/router.ts" {4,7-9}
+type Difficulty = 'simple' | 'moderate' | 'complex';
+
+async function classifyInvoice(ocrText: string): Promise<Difficulty> {
+  // Runs a quantized 1B classifier, not a frontier model
+  const result = await localModel.classify(ocrText, {
+    labels: ['simple', 'moderate', 'complex'],
+    threshold: 0.72,
+  });
+  return result.label as Difficulty;
+}
+
+async function routeInvoice(invoice: Invoice): Promise<ExtractionResult> {
+  const difficulty = await classifyInvoice(invoice.ocrText);
+
+  switch (difficulty) {
+    case 'simple':
+      return extractWithLocalModel(invoice); // Llama 3.1 8B on their infra
+    case 'moderate':
+      return extractWithMidModel(invoice);   // claude-haiku or gpt-4o-mini
+    case 'complex':
+      return extractWithFrontierModel(invoice); // gpt-4o only when needed
+  }
+}
+```
+
+**The model fleet** has three tiers:
+
+| Tier | Model | Cost per 1M tokens | Used for |
+|---|---|---|---|
+| Local | Llama 3.1 8B (fine-tuned) | ~$0.02 (compute only) | Simple invoices (~65%) |
+| Mid | claude-haiku-3-5 | $0.25 / $1.25 | Moderate invoices (~25%) |
+| Frontier | gpt-4o | $2.50 / $10.00 | Complex invoices (~10%) |
+
+The 65/25/10 split came from labeling 5,000 historical invoices and running the classifier against them. We validated it held on a fresh 2,000-invoice sample before shipping.
+
+## Open-source deployment and the GDPR angle
+
+For KCNL, running Llama 3.1 8B locally wasn't just a cost decision. Their clients are European enterprises who care about data residency. Sending invoice data to a US API for every extraction had been a compliance gray area from day one.
+
+The local model runs on their existing VPS. We quantized to 4-bit with GGUF, which means it runs on CPU if needed (slower) or a single A10 GPU (fast enough for their throughput). No data leaves their infrastructure for the simple tier.
+
+<Callout type="insight" title="GDPR as a forcing function">
+If you're building for European clients and routing all extraction through OpenAI or Anthropic, you're taking on compliance debt every month. Fixing the cost and fixing the GDPR exposure are the same refactor.
+</Callout>
+
+## The audit trail problem
+
+One thing we had to solve that isn't obvious from the cost picture: KCNL's clients require a full audit trail. They need to know, for each invoice, which model processed it, what confidence score it returned, and what the raw extraction looked like before any transformation.
+
+We added a thin logging wrapper around every model call:
+
+```ts title="src/lib/extraction-log.ts"
+interface ExtractionLog {
+  invoiceId: string;
+  modelTier: 'local' | 'mid' | 'frontier';
+  modelName: string;
+  confidenceScore: number;
+  rawOutput: string;
+  processingTimeMs: number;
+  timestamp: string;
+}
+```
+
+Every extraction writes to an append-only log in their existing Postgres database. Clients can query it via their admin portal. This was a non-negotiable requirement that we baked in from the start rather than bolting on after launch.
+
+## The numbers
+
+After 4 weeks in production:
+
+<StatFigure value="$1,500" label="Monthly LLM cost after the rewrite" />
+
+- Monthly LLM bill: $100,000 down to $1,500
+- Average extraction latency: 4.2s down to 1.2s (the local model is faster than waiting for API round-trips)
+- Accuracy: no measurable regression on the labeled test set
+- GDPR surface: 65% of invoices never leave KCNL's infrastructure
+
+The 70% latency reduction was a side effect we didn't plan for. Local inference, even on CPU for simple cases, is faster than a transatlantic API call when the document is straightforward.
+
+## What we'd do differently
+
+**Label more data upfront.** We labeled 5,000 invoices to calibrate the classifier. Doubling that would have given us better confidence thresholds and probably pushed the local-tier split from 65% to 75%.
+
+**Version the fine-tune.** We shipped one version of the Llama 3.1 8B fine-tune. Six months in, KCNL onboarded a new client with a document format the model had never seen. We had to retrain. A proper versioning and retraining pipeline should be part of the initial design.
+
+**Invest in the moderate tier.** Most of the remaining cost lives in the moderate tier. With a slightly larger fine-tune targeting that bucket specifically, we could probably collapse it down further.
+
+The core lesson: if you're routing everything to the same model, you're not doing AI cost optimization. You're doing invoice-style billing.

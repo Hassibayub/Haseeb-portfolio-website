@@ -14,7 +14,7 @@ export const siteConfig = {
     whatsapp: 'https://wa.me/923143543422',
     calendly:
       process.env.NEXT_PUBLIC_CALENDLY_URL ||
-      'https://calendly.com/miltech-haseeb/30min',
+      'https://calendly.com/miltech-haseeb/do-30min',
   },
 
   contact: {

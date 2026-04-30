@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { getCaseStudy, caseStudies } from '@/lib/case-studies-meta';
 import { caseStudyContent } from '@/lib/case-study-content';
 import { FinalCTA } from '@/components/sections/FinalCTA';
+import { siteConfig } from '@/lib/siteConfig';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -309,7 +310,7 @@ export default async function CaseStudyPage({ params }: Props) {
               All case studies
             </Link>
             <a
-              href="https://calendly.com/miltech-haseeb/30min"
+              href={siteConfig.links.calendly}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all hover:brightness-95"
