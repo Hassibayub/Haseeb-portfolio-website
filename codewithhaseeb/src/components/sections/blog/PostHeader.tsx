@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { format } from 'date-fns';
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPostMeta } from '@/lib/blog-config';
 
 interface PostHeaderProps {
-  post: BlogPost;
+  post: BlogPostMeta;
 }
 
 const categoryLabel: Record<string, string> = {

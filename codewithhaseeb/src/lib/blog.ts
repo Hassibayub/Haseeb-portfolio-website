@@ -1,8 +1,9 @@
+import 'server-only';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-
-export type BlogCategory = 'engineering' | 'opinion' | 'field-notes';
+import type { BlogCategory } from './blog-config';
+export type { BlogCategory } from './blog-config';
 
 export type BlogPost = {
   slug: string;
@@ -85,9 +86,5 @@ export async function getPostsByCategory(
   return posts.filter((p) => p.category === cat);
 }
 
-export const blogCategories: { id: BlogCategory | 'all'; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'engineering', label: 'Engineering' },
-  { id: 'opinion', label: 'Opinion' },
-  { id: 'field-notes', label: 'Field notes' },
-];
+// Re-export for server-side convenience
+export { blogCategories } from './blog-config';

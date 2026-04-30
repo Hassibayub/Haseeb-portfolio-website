@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPostMeta } from '@/lib/blog-config';
 import { BlogCard } from './BlogCard';
 import { CaseStudyInline } from '@/components/blog/mdx-components';
 
 interface PostRelatedProps {
-  post: BlogPost;
-  nextPost: BlogPost | null;
+  post: BlogPostMeta;
+  nextPost: BlogPostMeta | null;
 }
 
 export function PostRelated({ post, nextPost }: PostRelatedProps) {

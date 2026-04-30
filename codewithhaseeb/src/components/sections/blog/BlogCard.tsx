@@ -1,10 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { format } from 'date-fns';
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPostMeta } from '@/lib/blog-config';
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: BlogPostMeta;
   position?: number;
   activeFilter?: string;
 }

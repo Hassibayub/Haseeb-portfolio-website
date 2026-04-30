@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPostMeta } from '@/lib/blog-config';
 import { trackEvent } from '@/lib/analytics';
 
 interface PostFooterProps {
-  post: BlogPost;
+  post: BlogPostMeta;
 }
 
 export function PostFooter({ post }: PostFooterProps) {

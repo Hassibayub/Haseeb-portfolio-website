@@ -83,9 +83,17 @@ export default async function BlogPostPage({ params }: Props) {
   const sameCatNext = allPosts
     .slice(currentIndex + 1)
     .find((p) => p.category === post.category);
-  const nextPost = sameCatNext ?? allPosts[currentIndex + 1] ?? null;
+  const nextPostFull = sameCatNext ?? allPosts[currentIndex + 1] ?? null;
 
-  const headings = extractHeadings(post.content);
+  // Strip content (server-only field) before passing to client-capable components
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { content, ...postMeta } = post;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const nextPost = nextPostFull
+    ? (({ content: _c, ...rest }) => rest)(nextPostFull)
+    : null;
+
+  const headings = extractHeadings(content);
 
   const postSchema = {
     '@context': 'https://schema.org',
@@ -126,8 +134,8 @@ export default async function BlogPostPage({ params }: Props) {
       <PostProgress slug={slug} />
 
       <article>
-        <PostHeader post={post} />
-        <PostCover post={post} />
+        <PostHeader post={postMeta} />
+        <PostCover post={postMeta} />
 
         {/* Reading layout with optional TOC gutter at xl+ */}
         <div className="relative">
@@ -142,11 +150,11 @@ export default async function BlogPostPage({ params }: Props) {
               <PostTOC headings={headings} slug={slug} />
             </div>
           )}
-          <PostBody post={post} />
+          <PostBody content={post.content} />
         </div>
 
-        <PostFooter post={post} />
-        <PostRelated post={post} nextPost={nextPost} />
+        <PostFooter post={postMeta} />
+        <PostRelated post={postMeta} nextPost={nextPost} />
       </article>
 
       <FinalCTA variant="blog-post" />

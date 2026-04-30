@@ -1,6 +1,6 @@
 'use client';
 
-import { type BlogCategory, blogCategories } from '@/lib/blog';
+import { type BlogCategory, blogCategories } from '@/lib/blog-config';
 import { trackEvent } from '@/lib/analytics';
 
 interface BlogFiltersProps {

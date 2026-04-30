@@ -3,11 +3,10 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import type { BlogPost } from '@/lib/blog';
 import { mdxComponents } from '@/components/blog/mdx-components';
 
 interface PostBodyProps {
-  post: BlogPost;
+  content: string;
 }
 
 const prettyCodeOptions = {
@@ -16,7 +15,7 @@ const prettyCodeOptions = {
   defaultLang: 'plaintext',
 };
 
-export function PostBody({ post }: PostBodyProps) {
+export function PostBody({ content }: PostBodyProps) {
   return (
     <section
       className="pb-[64px] md:pb-[96px]"
@@ -28,7 +27,7 @@ export function PostBody({ post }: PostBodyProps) {
           style={{ maxWidth: 680 }}
         >
           <MDXRemote
-            source={post.content}
+            source={content}
             components={mdxComponents as Record<string, React.ComponentType>}
             options={{
               mdxOptions: {

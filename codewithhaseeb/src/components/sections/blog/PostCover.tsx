@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import type { BlogPost } from '@/lib/blog';
+import type { BlogPostMeta } from '@/lib/blog-config';
 
 interface PostCoverProps {
-  post: BlogPost;
+  post: BlogPostMeta;
 }
 
 export function PostCover({ post }: PostCoverProps) {

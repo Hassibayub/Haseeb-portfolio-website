@@ -23,7 +23,10 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  const allPosts = await getAllPosts();
+
+  // Strip content (server-only) before passing to client BlogList
+  const posts = allPosts.map(({ content: _c, ...meta }) => meta);
 
   const blogSchema = {
     '@context': 'https://schema.org',
@@ -36,7 +39,7 @@ export default async function BlogPage() {
       name: 'Muhammad Haseeb',
       url: 'https://codewithhaseeb.com/about',
     },
-    blogPost: posts.slice(0, 10).map((p) => ({
+    blogPost: allPosts.slice(0, 10).map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
       description: p.excerpt,
