@@ -198,3 +198,42 @@
 
   /* LogoBar wordmark hover — handled via Tailwind hover:text-[#1D2020] on each item */
 }
+
+/* ─── Print / Resume PDF ─────────────────────────────────────────────────── */
+@media print {
+  /* Hide interactive chrome */
+  nav,
+  footer[data-role="site-footer"],
+  [data-no-print] { display: none !important; }
+
+  /* Flatten surfaces to white */
+  main, section { background: #FFFFFF !important; }
+
+  /* Compress spacing ~40% */
+  section { padding-top: 32px !important; padding-bottom: 32px !important; }
+
+  /* Expand URLs for print context */
+  a[href^="http"]::after,
+  a[href^="/work"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #5A5C5C;
+  }
+  a[href^="mailto:"]::after,
+  a[href^="tel:"]::after,
+  a[href^="https://wa.me"]::after { content: ""; }
+
+  /* Prevent page breaks inside work rows */
+  [data-resume-work-row] { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+
+  /* Dark testimonials section inverts in print */
+  [data-surface="dark"] {
+    background: #FFFFFF !important;
+    color: #1D2020 !important;
+    border-top: 1px solid #1D2020;
+    border-bottom: 1px solid #1D2020;
+    padding: 24px !important;
+  }
+  [data-surface="dark"] * { color: #1D2020 !important; }
+}

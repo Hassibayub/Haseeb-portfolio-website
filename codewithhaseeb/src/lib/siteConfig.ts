@@ -15,6 +15,7 @@ export const siteConfig = {
     calendly:
       process.env.NEXT_PUBLIC_CALENDLY_URL ||
       'https://calendly.com/miltech-haseeb/do-30min',
+    resume: '/resume',
   },
 
   contact: {

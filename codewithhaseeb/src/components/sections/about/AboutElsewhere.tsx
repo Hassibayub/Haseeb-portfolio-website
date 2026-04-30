@@ -31,12 +31,12 @@ const links = [
   },
   {
     id: 'resume' as const,
-    title: 'Resume PDF',
-    body: 'Full engineering history. Two pages.',
-    cta: 'Download',
-    href: '/resume.pdf',
+    title: 'Resume',
+    body: 'Full engineering history. Linked case studies. Downloadable PDF.',
+    cta: 'View resume',
+    href: '/resume',
     external: false,
-    download: true,
+    download: false,
   },
 ];
 
@@ -71,7 +71,7 @@ export function AboutElsewhere() {
               download={link.download ? '' : undefined}
               onClick={() => {
                 if (link.id === 'resume') {
-                  trackEvent('about_resume_download', {});
+                  trackEvent('about_resume_click', {});
                 } else {
                   trackEvent('about_link_click', { target: link.id });
                 }

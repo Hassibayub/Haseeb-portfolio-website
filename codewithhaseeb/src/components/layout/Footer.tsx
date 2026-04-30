@@ -6,7 +6,7 @@ export function Footer() {
   const featured = caseStudies.slice(0, 4);
 
   return (
-    <footer className="bg-[#1A1A1B] text-white">
+    <footer className="bg-[#1A1A1B] text-white" data-role="site-footer">
       <div className="container-tight py-16 md:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
 
@@ -34,6 +34,7 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-white transition">About</Link></li>
               <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
               <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
+              <li><Link href="/resume" className="hover:text-white transition">Resume</Link></li>
             </ul>
           </div>
 
