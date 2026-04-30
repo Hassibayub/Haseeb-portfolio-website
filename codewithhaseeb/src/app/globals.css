@@ -35,6 +35,7 @@
 
   /* Fonts */
   --font-sans:    var(--font-inter), system-ui, sans-serif;
+  --font-body:    var(--font-bricolage), system-ui, sans-serif;
   --font-display: var(--font-instrument-serif), "Playfair Display", serif;
   --font-mono:    var(--font-ibm-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
   --font-ibm:     var(--font-ibm-plex-mono), "IBM Plex Mono", monospace;
@@ -119,6 +120,10 @@
   /* Smooth font rendering for serif display */
   .font-display {
     font-feature-settings: 'liga', 'kern';
+  }
+
+  .font-body {
+    font-family: var(--font-body);
   }
 }
 

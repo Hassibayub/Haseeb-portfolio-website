@@ -1,0 +1,213 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import {
+  IconBrain,
+  IconRobot,
+  IconMicrophone,
+  IconBolt,
+  IconChartDots3,
+  IconCode,
+} from '@tabler/icons-react';
+import type { Icon as TablerIcon } from '@tabler/icons-react';
+
+import { type ServiceDetail } from '@/lib/services-detail';
+import { siteConfig } from '@/lib/siteConfig';
+import { IncludedList } from '@/components/ui/included-list';
+import { ProofChip } from '@/components/ui/proof-chip';
+import { trackEvent } from '@/lib/analytics';
+
+const iconMap: Record<string, TablerIcon> = {
+  'ai-saas-mvp': IconBrain,
+  'ai-agents': IconRobot,
+  'voice-ai': IconMicrophone,
+  'llm-cost-optimization': IconBolt,
+  'ai-automation': IconChartDots3,
+  'senior-fullstack': IconCode,
+};
+
+interface ServiceBlockProps {
+  service: ServiceDetail;
+  surface: 'light' | 'cream';
+}
+
+export function ServiceBlock({ service, surface }: ServiceBlockProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          trackEvent('services_block_view', { service_slug: service.slug });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [service.slug]);
+
+  const bg = surface === 'cream' ? '#F3F2F1' : '#FFFFFF';
+
+  return (
+    <section
+      id={`service-${service.slug}`}
+      ref={ref}
+      className="py-[72px] md:py-[120px]"
+      style={{ backgroundColor: bg }}
+    >
+      <div className="container-tight">
+        <div className="grid lg:grid-cols-[5fr_1fr_6fr] gap-0 items-start">
+
+          {/* Meta column */}
+          <div className="lg:col-span-1">
+            {/* Icon chip */}
+            <div
+              className="flex items-center justify-center mb-8"
+              style={{
+                width: 64,
+                height: 64,
+                border: '1px solid #E7E6E4',
+                borderRadius: 16,
+                backgroundColor: '#FFFFFF',
+              }}
+            >
+              {(() => {
+                const Icon = iconMap[service.slug] ?? IconBrain;
+                return <Icon size={32} stroke={1.5} color="#1D2020" />;
+              })()}
+            </div>
+
+            {/* Eyebrow */}
+            <p className="text-label mb-4" style={{ color: '#8C8C8C' }}>
+              {service.eyebrow}
+            </p>
+
+            {/* Headline */}
+            <h2
+              className="font-body font-medium leading-[1.1] tracking-tight mb-4"
+              style={{
+                fontSize: 'clamp(32px, 4vw, 56px)',
+                color: '#1D2020',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {service.headline}
+            </h2>
+
+            {/* Positioning line */}
+            <p
+              className="font-body text-[18px] max-w-[420px]"
+              style={{ color: '#5A5C5C' }}
+            >
+              {service.positioningLine}
+            </p>
+          </div>
+
+          {/* Gutter */}
+          <div className="hidden lg:block lg:col-span-1" />
+
+          {/* Body column */}
+          <div className="lg:col-span-1">
+            {/* Two-paragraph intro */}
+            <div className="space-y-5 mb-8">
+              <p
+                className="font-body text-[16px] leading-[1.65]"
+                style={{ color: '#1D2020' }}
+              >
+                {service.body[0]}
+              </p>
+              <p
+                className="font-body text-[16px] leading-[1.65]"
+                style={{ color: '#1D2020' }}
+              >
+                {service.body[1]}
+              </p>
+            </div>
+
+            {/* What's included */}
+            <h3
+              className="text-label mb-6"
+              style={{ color: '#8C8C8C' }}
+            >
+              what&apos;s included
+            </h3>
+            <IncludedList items={service.included} />
+
+            {/* Typical engagement */}
+            <div
+              className="mt-8 inline-flex flex-col gap-1 px-5 py-4"
+              style={{
+                backgroundColor: surface === 'cream' ? '#FFFFFF' : '#F3F2F1',
+                border: '1px solid #E7E6E4',
+                borderRadius: 12,
+              }}
+            >
+              <span className="text-label" style={{ color: '#8C8C8C' }}>
+                typical_engagement
+              </span>
+              <span className="font-mono text-[15px]" style={{ color: '#1D2020' }}>
+                {service.typicalEngagement.priceRange} · {service.typicalEngagement.duration}
+              </span>
+            </div>
+
+            {/* Proof chips */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {service.proofChips.map((chip) => (
+                <ProofChip
+                  key={chip.slug + chip.label}
+                  slug={chip.slug}
+                  label={chip.label}
+                  metric={chip.metric}
+                />
+              ))}
+            </div>
+
+            {/* CTA pair */}
+            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <Link
+                href={`${siteConfig.links.calendly}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent('services_cta_click', {
+                    service_slug: service.slug,
+                    location: `service_${service.slug}`,
+                  })
+                }
+                className="group inline-flex items-center gap-2 rounded-full px-6 py-3 font-body font-medium transition-all duration-200 hover:brightness-95"
+                style={{
+                  backgroundColor: '#D8F9B8',
+                  color: '#1D2020',
+                  height: 48,
+                }}
+              >
+                Start scoping this
+                <ArrowUpRight
+                  size={14}
+                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+                />
+              </Link>
+              <Link
+                href={`/work`}
+                className="group inline-flex items-center gap-1 font-body text-[15px] transition-colors hover:underline"
+                style={{ color: '#7C3AED' }}
+              >
+                See related work
+                <ArrowUpRight
+                  size={13}
+                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

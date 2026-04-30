@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   IconBrain,
   IconRobot,
@@ -73,7 +74,8 @@ function ServiceCard({
   const Icon = iconMap[service.slug] ?? IconBrain;
 
   return (
-    <article
+    <Link
+      href={`/services#service-${service.slug}`}
       className={[
         'group relative flex flex-col overflow-hidden',
         'rounded-3xl p-7',
@@ -122,6 +124,6 @@ function ServiceCard({
           </p>
         )}
       </div>
-    </article>
+    </Link>
   );
 }

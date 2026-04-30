@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { siteConfig } from '@/lib/siteConfig';
 import { trackEvent } from '@/lib/analytics';
+import { TracePanel } from '@/components/ui/trace-panel';
 
 export function Hero() {
   return (
@@ -110,99 +111,18 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative hidden lg:block"
           >
-            <HeroVisual />
+            <TracePanel
+              variant="hero"
+              headerLabel="cs_01 / aphra.me"
+              primary={{ stat: '17K', label: 'users live' }}
+              chips={[
+                { header: 'cs_02 / capwell comm', label: '500K records, 3 weeks', stat: '3wk' },
+                { header: 'cs_03 / kcnl.eu', label: '98.5% LLM cost cut', stat: '98.5%' },
+              ]}
+            />
           </motion.div>
         </div>
       </div>
     </section>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="relative w-full max-w-[460px] mx-auto space-y-4">
-
-      {/* Primary card */}
-      <div
-        className="rounded-2xl p-8 border"
-        style={{
-          backgroundColor: '#242727',
-          borderColor: 'rgba(255,255,255,0.07)',
-          boxShadow: '0 0 0 1px rgba(255,255,255,0.04) inset',
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <p
-            className="font-mono text-xs tracking-wider"
-            style={{ color: 'rgba(255,255,255,0.3)' }}
-          >
-            cs_01 / aphra.me
-          </p>
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ backgroundColor: '#0099FF', opacity: 0.5 }} />
-            <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: '#0099FF' }} />
-          </span>
-        </div>
-
-        <p
-          className="font-display leading-none mb-2"
-          style={{ fontSize: '80px', color: '#F1F0EE', letterSpacing: '-0.04em' }}
-        >
-          17K
-        </p>
-        <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
-          users live
-        </p>
-      </div>
-
-      {/* Secondary chip */}
-      <div
-        className="rounded-xl px-6 py-4 border flex items-center justify-between"
-        style={{
-          backgroundColor: '#1D2020',
-          borderColor: 'rgba(255,255,255,0.06)',
-        }}
-      >
-        <div>
-          <p className="font-mono text-xs tracking-wider mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>
-            cs_02 / capwell comm
-          </p>
-          <p className="text-base font-medium" style={{ color: '#F1F0EE' }}>
-            500K records, 3 weeks
-          </p>
-        </div>
-        <p
-          className="font-display text-3xl"
-          style={{ color: '#D8F9B8', letterSpacing: '-0.03em' }}
-        >
-          3wk
-        </p>
-      </div>
-
-      {/* Third chip */}
-      <div
-        className="rounded-xl px-6 py-4 border flex items-center justify-between"
-        style={{
-          backgroundColor: '#1D2020',
-          borderColor: 'rgba(255,255,255,0.06)',
-        }}
-      >
-        <div>
-          <p className="font-mono text-xs tracking-wider mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>
-            cs_03 / kcnl.eu
-          </p>
-          <p className="text-base font-medium" style={{ color: '#F1F0EE' }}>
-            98.5% LLM cost cut
-          </p>
-        </div>
-        <p
-          className="font-display text-3xl"
-          style={{ color: '#D8F9B8', letterSpacing: '-0.03em' }}
-        >
-          98.5%
-        </p>
-      </div>
-
-    </div>
   );
 }
