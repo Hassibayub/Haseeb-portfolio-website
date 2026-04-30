@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { BlogPost, BlogCategory } from '@/lib/blog';
+import type { BlogPost, BlogCategory } from '@/lib/blog-config';
 import { BlogCard } from './BlogCard';
 import { BlogFilters } from './BlogFilters';
 import { BlogEmpty } from './BlogEmpty';
-import { blogCategories } from '@/lib/blog';
+import { blogCategories } from '@/lib/blog-config';
 import { trackEvent } from '@/lib/analytics';
 
 interface BlogListProps {

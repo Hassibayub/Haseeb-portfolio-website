@@ -100,7 +100,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ backgroundColor: '#0099FF', opacity: 0.6 }} />
                 <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: '#0099FF' }} />
               </span>
-              <span>Taking 1 new project this month · Reply within 24h</span>
+              <span>Reply within 24h</span>
             </motion.div>
           </div>
 
