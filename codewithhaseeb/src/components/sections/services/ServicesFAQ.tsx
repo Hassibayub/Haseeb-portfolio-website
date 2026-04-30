@@ -10,27 +10,27 @@ const faqs = [
   {
     question: 'What does "fixed price" actually cover?',
     answer:
-      'Everything scoped in the proposal. Scope is written down, signed, and invoiced against milestones. If the brief changes, we write a change order, price it, and both sides sign before anyone starts building. You never see a "revised invoice" in your inbox.',
+      'Everything in the signed proposal. Scope changes get a written change order before work continues. You never see a revised invoice in your inbox.',
   },
   {
     question: "What's the smallest engagement you'll take?",
     answer:
-      '$8,000. Below that, the overhead of scoping, contracting, and senior engineering time does not make sense for either side. We will refer you to a contractor we trust.',
+      '$8,000. Below that, the overhead of scoping and senior engineering time does not work for either side. We will refer you to a contractor we trust.',
   },
   {
     question: 'Do you work with non-technical founders?',
     answer:
-      'Yes. About half our clients are non-technical. We translate between engineering and product. Weekly demos are for you, not for us. If you do not understand something, that is our failure, not yours.',
+      'Yes. About half our clients are non-technical. Weekly demos are for you, not for us.',
   },
   {
     question: 'Who actually does the work?',
     answer:
-      'A 5-person senior team. Muhammad Haseeb is the technical lead on every engagement. Team members are hand-picked per project. No juniors on billable code. No outsourced subcontractors you do not know about.',
+      'A 5-person senior team. Muhammad Haseeb is the technical lead on every engagement. No juniors on billable code. No subcontractors you do not know about.',
   },
   {
-    question: 'Where are you based and what hours do you work?',
+    question: 'Where are you based?',
     answer:
-      'Remote-first. Islamabad (UTC+5). We overlap 3-4 hours daily with US Eastern and 5+ hours with Europe. Weekly sync happens on your clock, not ours.',
+      'Islamabad, UTC+5. We overlap 3-4 hours daily with US Eastern, 5+ hours with Europe. Weekly sync runs on your clock.',
   },
 ];
 
@@ -44,7 +44,7 @@ export function ServicesFAQ() {
 
   return (
     <section
-      className="py-[80px] md:py-[120px]"
+      className="py-[72px] md:py-[112px]"
       style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="container-tight">
@@ -69,7 +69,7 @@ export function ServicesFAQ() {
               className="font-body text-[18px] leading-[1.5]"
               style={{ color: '#5A5C5C' }}
             >
-              If you have a question that isn&apos;t here, email{' '}
+              Not here? Email{' '}
               <a
                 href={`mailto:${siteConfig.contact.email}`}
                 className="underline underline-offset-4 transition-colors hover:text-[#7C3AED]"

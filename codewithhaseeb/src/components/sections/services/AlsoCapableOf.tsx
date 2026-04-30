@@ -9,7 +9,7 @@ const capabilities = [
 export function AlsoCapableOf() {
   return (
     <section
-      className="py-[56px] md:py-[96px]"
+      className="py-[56px] md:py-[88px]"
       style={{ backgroundColor: '#F3F2F1' }}
     >
       <div className="container-tight max-w-[720px]">

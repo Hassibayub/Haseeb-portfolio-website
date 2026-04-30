@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import {
-  IconBrain,
+  IconRocket,
   IconRobot,
   IconMicrophone,
   IconBolt,
@@ -20,7 +20,7 @@ import { ProofChip } from '@/components/ui/proof-chip';
 import { trackEvent } from '@/lib/analytics';
 
 const iconMap: Record<string, TablerIcon> = {
-  'ai-saas-mvp': IconBrain,
+  'ai-saas-mvp': IconRocket,
   'ai-agents': IconRobot,
   'voice-ai': IconMicrophone,
   'llm-cost-optimization': IconBolt,
@@ -58,7 +58,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
     <section
       id={`service-${service.slug}`}
       ref={ref}
-      className="py-[72px] md:py-[120px]"
+      className="py-[64px] md:py-[112px]"
       style={{ backgroundColor: bg }}
     >
       <div className="container-tight">
@@ -78,7 +78,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
               }}
             >
               {(() => {
-                const Icon = iconMap[service.slug] ?? IconBrain;
+                const Icon = iconMap[service.slug] ?? IconRocket;
                 return <Icon size={32} stroke={1.5} color="#1D2020" />;
               })()}
             </div>
@@ -92,7 +92,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             <h2
               className="font-body font-medium leading-[1.1] tracking-tight mb-4"
               style={{
-                fontSize: 'clamp(32px, 4vw, 56px)',
+                fontSize: 'clamp(32px, 4vw, 48px)',
                 color: '#1D2020',
                 letterSpacing: '-0.02em',
               }}
@@ -102,7 +102,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
 
             {/* Positioning line */}
             <p
-              className="font-body text-[18px] max-w-[420px]"
+              className="font-body text-[18px] max-w-[400px] mt-5"
               style={{ color: '#5A5C5C' }}
             >
               {service.positioningLine}
@@ -114,28 +114,12 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
 
           {/* Body column */}
           <div className="lg:col-span-1">
-            {/* Two-paragraph intro */}
-            <div className="space-y-5 mb-8">
-              <p
-                className="font-body text-[16px] leading-[1.65]"
-                style={{ color: '#1D2020' }}
-              >
-                {service.body[0]}
-              </p>
-              <p
-                className="font-body text-[16px] leading-[1.65]"
-                style={{ color: '#1D2020' }}
-              >
-                {service.body[1]}
-              </p>
-            </div>
-
-            {/* What's included */}
+            {/* What you get */}
             <h3
-              className="text-label mb-6"
+              className="text-label mb-4"
               style={{ color: '#8C8C8C' }}
             >
-              what&apos;s included
+              what you get
             </h3>
             <IncludedList items={service.included} />
 
@@ -143,15 +127,21 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             <div
               className="mt-8 inline-flex flex-col gap-1 px-5 py-4"
               style={{
-                backgroundColor: surface === 'cream' ? '#FFFFFF' : '#F3F2F1',
+                backgroundColor: '#F3F2F1',
                 border: '1px solid #E7E6E4',
                 borderRadius: 12,
               }}
             >
-              <span className="text-label" style={{ color: '#8C8C8C' }}>
-                typical_engagement
+              <span
+                className="text-[11px] font-sans uppercase tracking-[0.12em]"
+                style={{ color: '#8C8C8C' }}
+              >
+                Typical engagement
               </span>
-              <span className="font-mono text-[15px]" style={{ color: '#1D2020' }}>
+              <span
+                className="text-[15px] font-sans mt-1"
+                style={{ color: '#1D2020' }}
+              >
                 {service.typicalEngagement.priceRange} · {service.typicalEngagement.duration}
               </span>
             </div>
@@ -171,13 +161,13 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             {/* CTA pair */}
             <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <Link
-                href={`${siteConfig.links.calendly}`}
+                href={siteConfig.links.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() =>
                   trackEvent('services_cta_click', {
                     service_slug: service.slug,
-                    location: `service_${service.slug}`,
+                    location: service.slug,
                   })
                 }
                 className="group inline-flex items-center gap-2 rounded-full px-6 py-3 font-body font-medium transition-all duration-200 hover:brightness-95"
@@ -187,22 +177,18 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
                   height: 48,
                 }}
               >
-                Start scoping this
+                Start scoping
                 <ArrowUpRight
                   size={14}
                   className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
                 />
               </Link>
               <Link
-                href={`/work`}
+                href={`/work/${service.proofChips[0]?.slug}`}
                 className="group inline-flex items-center gap-1 font-body text-[15px] transition-colors hover:underline"
                 style={{ color: '#7C3AED' }}
               >
                 See related work
-                <ArrowUpRight
-                  size={13}
-                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
-                />
               </Link>
             </div>
           </div>
