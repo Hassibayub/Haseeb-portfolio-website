@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 
 import { ContactHero } from '@/components/sections/contact/ContactHero';
 import { ContactForm } from '@/components/sections/contact/ContactForm';
@@ -96,7 +97,9 @@ export default function ContactPage() {
       />
       <div style={{ backgroundColor: '#F3F2F1' }}>
         <ContactHero />
-        <ContactForm />
+        <Suspense fallback={null}>
+          <ContactForm />
+        </Suspense>
       </div>
       <ContactAlternatives />
       <ContactFAQ />

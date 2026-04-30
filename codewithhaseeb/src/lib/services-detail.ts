@@ -93,7 +93,7 @@ export const servicesDetail: ServiceDetail[] = [
       duration: '3 to 6 weeks',
     },
     proofChips: [
-      { slug: 'kcnl', label: 'Enterprise client', metric: '$100K to $1.5K/mo' },
+      { slug: 'kcnl', label: 'KCNL', metric: '$100K to $1.5K/mo' },
       { slug: 'kcnl', label: 'KCNL', metric: '70% latency cut' },
     ],
   },
@@ -114,7 +114,7 @@ export const servicesDetail: ServiceDetail[] = [
     },
     proofChips: [
       { slug: 'fcs', label: 'FCS', metric: '68K leads' },
-      { slug: 'fcs', label: 'Enterprise', metric: '2K users automated' },
+      { slug: 'aphra', label: 'Aphra', metric: '2K users automated' },
     ],
   },
   {

@@ -21,8 +21,8 @@ export function AlsoCapableOf() {
           className="font-body text-[28px] md:text-[32px] leading-[1.2] mb-8"
           style={{ color: '#1D2020' }}
         >
-          If you need one of these for a project we are already scoping, say so.
-          Standalone engagements in these areas go through a referral partner.
+          If you need one of these as part of a larger engagement, say so.
+          Standalone work in these areas goes to a referral partner.
         </h2>
 
         <div className="flex flex-wrap gap-2">

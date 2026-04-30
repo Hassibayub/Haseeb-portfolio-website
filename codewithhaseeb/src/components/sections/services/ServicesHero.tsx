@@ -16,7 +16,7 @@ export function ServicesHero() {
         {/* Single column, left-aligned, max-width 960px */}
         <div className="max-w-[960px]">
           <p
-            className="text-label mb-6"
+            className="font-mono text-[12px] tracking-[0.08em] lowercase mb-6"
             style={{ color: '#8C8C8C' }}
           >
             services
@@ -53,6 +53,7 @@ export function ServicesHero() {
                 backgroundColor: '#D8F9B8',
                 color: '#1D2020',
                 height: 48,
+                border: '1px solid #1D2020',
               }}
             >
               Book a scoping call

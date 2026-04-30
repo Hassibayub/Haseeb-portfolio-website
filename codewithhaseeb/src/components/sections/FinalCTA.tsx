@@ -121,7 +121,7 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
             className="text-sm"
             style={{ color: 'rgba(255,255,255,0.25)' }}
           >
-            Reply within 24h · Taking new project this month · Remote (UTC+5)
+            Reply within one business day · Taking one new project this month · Remote (UTC+5)
           </p>
           {(isServices || isWork || isAbout) && (
             <>
@@ -136,7 +136,7 @@ export function FinalCTA({ variant = 'home' }: FinalCTAProps) {
                 className="text-sm transition-colors hover:underline"
                 style={{ color: '#D8F9B8' }}
               >
-                {siteConfig.contact.email}
+                Email {siteConfig.contact.email}
               </a>
             </>
           )}

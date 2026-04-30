@@ -4,12 +4,22 @@ import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useSearchParams } from 'next/navigation';
 
 import { FormField } from '@/components/ui/form-field';
 import { FormTextarea } from '@/components/ui/form-textarea';
 import { FormSelect } from '@/components/ui/form-select';
 import { ContactFormSuccess } from './ContactFormSuccess';
 import { trackEvent } from '@/lib/analytics';
+
+const serviceLabels: Record<string, string> = {
+  'ai-saas-mvp': 'AI SaaS MVPs',
+  'ai-agents': 'AI Agents',
+  'voice-ai': 'Voice AI',
+  'llm-cost-optimization': 'LLM Cost Optimization',
+  'ai-automation': 'AI Workflow Automation',
+  'senior-fullstack': 'Senior Full-Stack Engineering',
+};
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(80),
@@ -38,6 +48,10 @@ const budgetOptions = [
 ];
 
 export function ContactForm() {
+  const searchParams = useSearchParams();
+  const serviceSlug = searchParams.get('service');
+  const serviceLabel = serviceSlug ? (serviceLabels[serviceSlug] ?? null) : null;
+
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -125,6 +139,21 @@ export function ContactForm() {
           noValidate
           style={{ maxWidth: 640 }}
         >
+          {/* Service context banner — shown when arriving from /services */}
+          {serviceLabel && (
+            <div
+              className="mb-8 px-5 py-4 rounded-xl font-body text-[14px]"
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E7E6E4',
+                borderLeft: '4px solid #D8F9B8',
+                color: '#1D2020',
+              }}
+            >
+              You are asking about: <strong>{serviceLabel}</strong>
+            </div>
+          )}
+
           {/* Honeypot — hidden from real users */}
           <div
             aria-hidden="true"

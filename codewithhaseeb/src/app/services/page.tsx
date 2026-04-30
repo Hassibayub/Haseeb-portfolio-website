@@ -92,13 +92,14 @@ const faqJsonLd = {
   ],
 };
 
+// Surface per spec §3: light, cream, light | DARK break | light, cream, light
 const surfaceOrder: ('light' | 'cream')[] = [
-  'light',
-  'cream',
-  'light',
-  'light',
-  'cream',
-  'light',
+  'light',  // 0: ai-saas-mvp
+  'cream',  // 1: ai-agents
+  'light',  // 2: voice-ai
+  'light',  // 3: llm-cost-optimization  (resumes after dark PricingPhilosophy)
+  'cream',  // 4: ai-automation
+  'light',  // 5: senior-fullstack
 ];
 
 export default function ServicesPage() {
@@ -119,7 +120,8 @@ export default function ServicesPage() {
 
       <ServicesHero />
 
-      {servicesDetail.map((service, i) => (
+      {/* Services 0–2 */}
+      {servicesDetail.slice(0, 3).map((service, i) => (
         <ServiceBlock
           key={service.slug}
           service={service}
@@ -127,7 +129,18 @@ export default function ServicesPage() {
         />
       ))}
 
+      {/* Mid-page dark break — spec §3 */}
       <PricingPhilosophy />
+
+      {/* Services 3–5 */}
+      {servicesDetail.slice(3).map((service, i) => (
+        <ServiceBlock
+          key={service.slug}
+          service={service}
+          surface={surfaceOrder[i + 3]}
+        />
+      ))}
+
       <AlsoCapableOf />
       <ServicesFAQ />
       <FinalCTA variant="services" />

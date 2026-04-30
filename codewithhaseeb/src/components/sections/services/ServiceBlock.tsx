@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
 import {
   IconRocket,
   IconRobot,
@@ -14,7 +13,6 @@ import {
 import type { Icon as TablerIcon } from '@tabler/icons-react';
 
 import { type ServiceDetail } from '@/lib/services-detail';
-import { siteConfig } from '@/lib/siteConfig';
 import { IncludedList } from '@/components/ui/included-list';
 import { ProofChip } from '@/components/ui/proof-chip';
 import { trackEvent } from '@/lib/analytics';
@@ -84,7 +82,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             </div>
 
             {/* Eyebrow */}
-            <p className="text-label mb-4" style={{ color: '#8C8C8C' }}>
+            <p className="font-mono text-[12px] tracking-[0.08em] lowercase mb-4" style={{ color: '#8C8C8C' }}>
               {service.eyebrow}
             </p>
 
@@ -132,12 +130,12 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
                 borderRadius: 12,
               }}
             >
-              <span
-                className="text-[11px] font-sans uppercase tracking-[0.12em]"
+              <h3
+                className="text-[11px] font-mono uppercase tracking-[0.12em]"
                 style={{ color: '#8C8C8C' }}
               >
                 Typical engagement
-              </span>
+              </h3>
               <span
                 className="text-[15px] font-sans mt-1"
                 style={{ color: '#1D2020' }}
@@ -161,9 +159,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             {/* CTA pair */}
             <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <Link
-                href={siteConfig.links.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/contact?service=${service.slug}`}
                 onClick={() =>
                   trackEvent('services_cta_click', {
                     service_slug: service.slug,
@@ -178,10 +174,6 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
                 }}
               >
                 Start scoping
-                <ArrowUpRight
-                  size={14}
-                  className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
-                />
               </Link>
               <Link
                 href={`/work/${service.proofChips[0]?.slug}`}
