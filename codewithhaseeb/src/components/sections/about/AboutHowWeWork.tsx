@@ -65,7 +65,7 @@ export function AboutHowWeWork() {
               <div className="col-span-2 sm:col-span-1 pt-1">
                 <span
                   className="font-body font-normal text-[28px] md:text-[32px] leading-none select-none"
-                  style={{ color: '#D8F9B8' }}
+                  style={{ color: 'rgba(29, 32, 32, 0.10)' }}
                   aria-hidden="true"
                 >
                   {step.number}
