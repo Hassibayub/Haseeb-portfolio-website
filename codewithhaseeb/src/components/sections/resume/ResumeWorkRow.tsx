@@ -81,11 +81,20 @@ export function ResumeWorkRow({ entry, isLast }: ResumeWorkRowProps) {
       <Link
         href={entry.caseStudyUrl}
         onClick={() => trackEvent('resume_work_click', { slug: entry.slug })}
-        className="inline-block font-body font-medium mt-6 underline underline-offset-4 decoration-2 transition-all hover:decoration-[3px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2020] focus-visible:ring-offset-2"
+        className="inline-block font-body font-medium mt-6 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1D2020] focus-visible:ring-offset-2"
         style={{
           fontSize: 14,
           color: '#1D2020',
+          textDecoration: 'underline',
           textDecorationColor: '#D8F9B8',
+          textDecorationThickness: 2,
+          textUnderlineOffset: 4,
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.textDecorationThickness = '3px';
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.textDecorationThickness = '2px';
         }}
       >
         Read the case study

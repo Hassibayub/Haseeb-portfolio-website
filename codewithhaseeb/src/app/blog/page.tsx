@@ -6,7 +6,7 @@ import { BlogEmpty } from '@/components/sections/blog/BlogEmpty';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const metadata: Metadata = {
-  title: 'Blog. Notes on building production AI. | codewithhaseeb',
+  title: 'Blog. Notes on building production AI.',
   description:
     'Field notes on shipping AI systems: LLM cost, agent architecture, voice pipelines, and the gap between demos and production.',
   openGraph: {

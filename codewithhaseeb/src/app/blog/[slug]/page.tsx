@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | codewithhaseeb`,
+    title: post.title,
     description: post.excerpt,
     authors: [{ name: 'Muhammad Haseeb', url: 'https://codewithhaseeb.com/about' }],
     openGraph: {

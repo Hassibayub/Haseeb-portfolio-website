@@ -9,7 +9,7 @@ import { ResumeTestimonials } from '@/components/sections/resume/ResumeTestimoni
 import { ResumeContact } from '@/components/sections/resume/ResumeContact';
 
 export const metadata: Metadata = {
-  title: 'Resume. Muhammad Haseeb, lead AI engineer. | codewithhaseeb',
+  title: 'Resume. Muhammad Haseeb, lead AI engineer.',
   description:
     'Independent AI engineer since 2020. Shipped Aphra (17K users), Capwell (500K records), KCNL ($100K to $1,500/mo). Islamabad, UTC+5.',
   openGraph: {

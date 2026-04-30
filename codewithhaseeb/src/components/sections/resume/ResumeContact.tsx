@@ -73,7 +73,7 @@ export function ResumeContact() {
       style={{ backgroundColor: '#F3F2F1' }}
     >
       <div className="container-tight">
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 880 }}>
           <p
             className="font-mono text-[12px] tracking-[0.08em] lowercase"
             style={{ color: '#8C8C8C' }}

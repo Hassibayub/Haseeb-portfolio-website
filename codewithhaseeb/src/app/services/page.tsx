@@ -13,7 +13,7 @@ import {
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const metadata: Metadata = {
-  title: 'Services. AI engineering built to ship. | codewithhaseeb',
+  title: 'Services. AI engineering built to ship.',
   description:
     'Six sharp offers: AI SaaS MVPs, AI agents, voice AI, LLM cost optimization, AI automation, and senior full-stack. Fixed-price, 4 to 10 week engagements.',
   openGraph: {

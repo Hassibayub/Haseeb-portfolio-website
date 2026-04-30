@@ -93,8 +93,8 @@ export const servicesDetail: ServiceDetail[] = [
       duration: '3 to 6 weeks',
     },
     proofChips: [
-      { slug: 'kcnl', label: 'KCNL', metric: '$100K to $1.5K/mo' },
-      { slug: 'kcnl', label: 'KCNL', metric: '70% latency cut' },
+      { slug: 'kcnl-cost', label: 'KCNL', metric: '$100K to $1.5K/mo' },
+      { slug: 'kcnl-latency', label: 'KCNL', metric: '70% latency cut' },
     ],
   },
   {

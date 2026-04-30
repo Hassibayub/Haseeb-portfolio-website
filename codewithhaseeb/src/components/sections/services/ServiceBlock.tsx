@@ -148,7 +148,7 @@ export function ServiceBlock({ service, surface }: ServiceBlockProps) {
             <div className="mt-6 flex flex-wrap gap-2">
               {service.proofChips.map((chip) => (
                 <ProofChip
-                  key={chip.slug + chip.label}
+                  key={chip.slug + chip.label + chip.metric}
                   slug={chip.slug}
                   label={chip.label}
                   metric={chip.metric}

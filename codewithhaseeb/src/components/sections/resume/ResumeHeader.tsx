@@ -53,7 +53,7 @@ export function ResumeHeader() {
           </div>
 
           {/* Right — meta + actions */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 mt-2 lg:mt-0">
             <div
               className="font-mono text-[12px] tracking-[0.05em] lowercase leading-[1.8]"
               style={{ color: '#8C8C8C' }}
